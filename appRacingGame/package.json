@@ -1,0 +1,15 @@
+{
+  "name": "appracinggame",
+  "version": "1.0.0",
+  "description": "Projet de jeu de course en Electron",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Evan Ferron et Maxime Fuzeau",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^30.0.0"
+  }
+}
