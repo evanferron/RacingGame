@@ -2,7 +2,6 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta
       http-equiv="Content-Security-Policy"
       content="default-src 'self'; script-src 'self'"
@@ -12,18 +11,18 @@
       content="default-src 'self'; script-src 'self'"
     />
     <title>Racing Game</title>
-    <!-- <link rel="stylesheet" href="styles.css" /> -->
+    <link rel="stylesheet" href="../css/register.css" />
   </head>
   <body>
     <main>
-      <h1 className="title">Register</h1>
-      <form className="form-register">
+      <h1 class="title">Login</h1>
+      <form class="form-login">
         <input type="text" name="pseudo" placeholder="Pseudo" />
-        <input type="email" name="email" placeholder="Email" />
         <input type="password" name="password" placeholder="Mot de passe" />
 
-        <button className="btn-submit" type="submit">Envoyer</button>
+        <button class="btn-submit" type="submit">Envoyer</button>
       </form>
+      <a class="btn-register" href="register.html"> Je n'ai pas de compte ! </a>
     </main>
   </body>
 </html>
