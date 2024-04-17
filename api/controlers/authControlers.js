@@ -2,13 +2,15 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 const GetControlers = require("./getControlers");
+const PlayerControlers = require("./playerControlers");
+const GameControlers = require("./gameControlers")
 
 dotenv.config();
 
 const SECRET_KEY = process.env.SECRET_KEY;
 const DB_PATH = process.env.DB_PATH;
 
-async function register(req, res) {
+const register = async (req, res) => {
   const player = req.body;
   try {
     const password = await bcrypt.hash(player.password, 10);
@@ -34,9 +36,9 @@ async function register(req, res) {
     console.log(err);
     res.status(500).send("Error registering user");
   }
-}
+};
 
-async function login(req, res) {
+const login = async (req, res) => {
   const player = req.body;
   // TO DO : check data format
   const user = await Database.Read(
@@ -61,7 +63,7 @@ async function login(req, res) {
     console.log(err);
     res.status(500).send("Error logging in");
   }
-}
+};
 
 module.exports = {
   register,
@@ -71,18 +73,17 @@ module.exports = {
 // local function to initialise every data wich the player is related from
 // return false if the operation hasn't succed
 const initPlayerData = async (nickname) => {
-  const defaultPoints = 100;
   const ranks = await GetControlers.getRanks();
-  const gamemodes = await GetControlers.getGamemodes();
-  const playerId = await GetControlers.getIdByNickname(nickname);
-  const silverRank = ranks.find((data) => data[1] === "silver"); // get silver id
+  const gamemodes = await GameControlers.getGamemodes();
+  const playerId = await PlayerControlers.getIdByNickname(nickname);
+  const silverRank = ranks.find((data) => data[1] === "silver"); // get silver data
   if (playerId == -1 || silverRank == null) return false;
   for (let gamemode of gamemodes) {
     const err = await Database.Write(
       DB_PATH,
       "INSERT INTO playersRank(playersId,points,gamemodeId,rankId;",
       playerId,
-      defaultPoints,
+      silverRank[2],
       gamemode.gamemodeId,
       silverRank[0]
     );

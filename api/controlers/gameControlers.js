@@ -1,7 +1,7 @@
 const Database = require("../Database.js");
 const DB_PATH = "./racingGame.db";
 
-exports.addGame = async (req, res) => {
+const addGame = async (req, res) => {
   const game = req.body;
 
   let err = await Database.Write(
@@ -19,3 +19,16 @@ exports.addGame = async (req, res) => {
   console.log("a game has been successfully add");
   res.json({ status: true });
 };
+
+const getGamemodes = async () => {
+    const gamemodes = await Database.Read(
+      DB_PATH,
+      "SELECT gamemodeId,name FROM gamemode;"
+    );
+    return gamemodes;
+};
+
+module.exports = {
+    addGame,
+    getGamemodes
+}
