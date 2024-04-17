@@ -9,6 +9,15 @@ const getRanks = async () => {
   return ranks;
 };
 
+const getRankById = async (id) => {
+  const ranks = await Database.Read(
+    DB_PATH,
+    "SELECT rankId,name,stepPoint,nextRank FROM rank WHERE rankId = ?;",
+    id
+  );
+  return ranks ? ranks[0] : null;
+};
+
 module.exports = {
   getRanks,
 };
