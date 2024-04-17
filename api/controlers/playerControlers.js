@@ -21,7 +21,7 @@ const getPlayerRankByGame = async (nickname, gamemodeId) => {
       playerId,
       gamemodeId
     );
-    const rankInfo = rankControlers.getRankByName(playerRank.rankId);
+    const rankInfo = rankControlers.getRankById(playerRank.rankId);
     const nextRankInfo = rankInfo.nextRank
       ? rankControlers.getRankByName(playerRank.rankId)
       : null;
@@ -29,8 +29,9 @@ const getPlayerRankByGame = async (nickname, gamemodeId) => {
       playerId: playerId,
       points: points,
       rankName: rankInfo.name,
-      downPoints: rankInfo.stepPoint,
-      upPoints: nextRankInfo ? nextRankInfo.stepPoint : null,
+      downPoints: rankInfo.downPoints,
+      upPoints: rankInfo.upPoints,
+      rankNumber: rankInfo.rankNumber,
       status: true,
     };
   } catch (error) {
@@ -43,4 +44,5 @@ const getPlayerRankByGame = async (nickname, gamemodeId) => {
 
 module.exports = {
   getIdByNickname,
+  getPlayerRankByGame,
 };

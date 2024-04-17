@@ -1,6 +1,7 @@
 const Database = require("../Database.js");
 const DB_PATH = "./racingGame.db";
 const playerControlers = require("./playerControlers.js");
+const rankUtils = require("../utils/rank.js");
 
 const addGame = async (req, res) => {
   const game = req.body;
@@ -51,9 +52,16 @@ const handleEndGame = async (req, res) => {
     gamemodeId
   );
   if (!winnerRank.status || !looserRank.status) {
-    res.status(401).send("Intern error");
+    res
+      .status(401)
+      .send("Intern error while getting winner and/or looser rank");
     return;
   }
+  const newScore = rankUtils.getNewPlayerPoints(
+    winnerRank.points,
+    looserRank.points
+  );
+
   // TO DO : calculate new score and add data to the database
 };
 
