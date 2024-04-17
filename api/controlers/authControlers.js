@@ -1,9 +1,9 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
-const GetControlers = require("./getControlers");
-const PlayerControlers = require("./playerControlers");
-const GameControlers = require("./gameControlers")
+const rankControlers = require("./rankControlers");
+const playerControlers = require("./playerControlers");
+const gameControlers = require("./gameControlers");
 
 dotenv.config();
 
@@ -73,9 +73,9 @@ module.exports = {
 // local function to initialise every data wich the player is related from
 // return false if the operation hasn't succed
 const initPlayerData = async (nickname) => {
-  const ranks = await GetControlers.getRanks();
-  const gamemodes = await GameControlers.getGamemodes();
-  const playerId = await PlayerControlers.getIdByNickname(nickname);
+  const ranks = await rankControlers.getRanks();
+  const gamemodes = await gameControlers.getGamemodes();
+  const playerId = await playerControlers.getIdByNickname(nickname);
   const silverRank = ranks.find((data) => data[1] === "silver"); // get silver data
   if (playerId == -1 || silverRank == null) return false;
   for (let gamemode of gamemodes) {
