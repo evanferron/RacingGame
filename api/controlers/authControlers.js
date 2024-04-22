@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const rankControlers = require("./rankControlers");
 const playerControlers = require("./playerControlers");
 const gameControlers = require("./gameControlers");
+const Database = require("../Database.js");
 
 dotenv.config();
 

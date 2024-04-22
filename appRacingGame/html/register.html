@@ -16,8 +16,12 @@
   <body>
     <main>
       <h1 class="title">Register</h1>
-      <form class="form-register">
-        <input type="text" name="pseudo" placeholder="Pseudo" />
+      <form
+        class="form-register"
+        method="post"
+        action="http://localhost:3000/api/auth/register"
+      >
+        <input type="text" name="nickname" placeholder="Pseudo" />
         <input type="email" name="email" placeholder="Email" />
         <input type="password" name="password" placeholder="Mot de passe" />
 
