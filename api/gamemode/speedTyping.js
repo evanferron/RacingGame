@@ -21,7 +21,16 @@ class SpeedTyping extends MainGamemode {
         this.checkAttempt(player, data.word);
         break;
       case "disconnected":
-      // To do
+        if (player == this.player1.id) {
+          this.isGameEnd = true;
+          this.player1.lvl = 0;
+          this.player2.lvl = 10;
+        } else if (player == this.player2.id) {
+          this.isGameEnd = true;
+          this.player2.lvl = 0;
+          this.player1.lvl = 10;
+        }
+        break;
     }
   }
 
