@@ -6,7 +6,7 @@ const createWindow = () => {
     height: 1080,
   });
 
-  win.loadFile("./html/index.html");
+  win.loadFile("./html/register.html");
 };
 
 app.whenReady().then(() => {

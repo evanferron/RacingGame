@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const rankControlers = require("./rankControlers");
 const playerControlers = require("./playerControlers");
 const gameControlers = require("./gameControlers");
+const Database = require("../Database.js");
 
 dotenv.config();
 
@@ -76,16 +77,18 @@ const initPlayerData = async (nickname) => {
   const ranks = await rankControlers.getRanks();
   const gamemodes = await gameControlers.getGamemodes();
   const playerId = await playerControlers.getIdByNickname(nickname);
-  const silverRank = ranks.find((data) => data[1] === "silver"); // get silver data
+
+  const silverRank = ranks.find((data) => data.name === "silver"); // get silver data
+
   if (playerId == -1 || silverRank == null) return false;
   for (let gamemode of gamemodes) {
     const err = await Database.Write(
       DB_PATH,
-      "INSERT INTO playersRank(playersId,points,gamemodeId,rankId;",
+      "INSERT INTO playersRank(playerId,points,gamemodeId,rankId) VALUES (?,?,?,?);",
       playerId,
-      silverRank[2],
+      silverRank.downPoints,
       gamemode.gamemodeId,
-      silverRank[0]
+      silverRank.rankId
     );
     if (err != null) {
       console.error(err);
