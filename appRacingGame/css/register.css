@@ -105,3 +105,12 @@ main .btn-register {
   align-items: center;
   justify-content: center;
 }
+
+/* --- Error Message --- */
+
+.error {
+  display: none;
+  color: red;
+  font-size: 1.125rem;
+  margin-bottom: 1rem;
+}
