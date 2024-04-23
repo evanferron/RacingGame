@@ -15,14 +15,48 @@
   </head>
   <body>
     <main>
-      <h1 class="title">Login</h1>
-      <form class="form-login">
-        <input type="text" name="pseudo" placeholder="Pseudo" />
-        <input type="password" name="password" placeholder="Mot de passe" />
+      <h1 class="title" aria-hidden="true">Login</h1>
+      <form class="form-login" aria-label="Formulaire de connexion">
+        <input
+          type="text"
+          name="pseudo"
+          placeholder="Pseudo"
+          aria-label="pseudo"
+        />
+        <span
+          class="error"
+          id="pseudo-error"
+          aria-label="error message pseudo"
+        ></span>
+        <input
+          type="password"
+          name="password"
+          placeholder="Mot de passe"
+          aria-label="mot de passe"
+        />
+        <span
+          class="error"
+          id="password-error"
+          aria-label="error message password"
+        ></span>
 
-        <button class="btn-submit" type="submit">Envoyer</button>
+        <button
+          class="btn-submit"
+          type="submit"
+          aria-label="Confirm"
+          role="button"
+        >
+          Envoyer
+        </button>
       </form>
-      <a class="btn-register" href="register.html"> Je n'ai pas de compte ! </a>
+      <a
+        class="btn-register"
+        href="register.html"
+        aria-label="Bouton register"
+        role="button"
+      >
+        Je n'ai pas de compte !
+      </a>
     </main>
   </body>
 </html>

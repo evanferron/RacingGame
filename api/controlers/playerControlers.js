@@ -42,7 +42,23 @@ const getPlayerRankByGame = async (nickname, gamemodeId) => {
   };
 };
 
+const getPlayerSingleRankInfo = async (playerId, gamemodeId) => {
+  try {
+    const player = await Database.Read(
+      DB_PATH,
+      "SELECT points,gamemodeId,rankId,requestDate FROM playersRank LEFT JOIN matchmakings ON playersRank.playerId = matchmakings.player WHERE playerId = ? AND gamemodeId = ?;",
+      playerId,
+      gamemodeId
+    );
+    return player.length != 0 ? player[0] : null;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 module.exports = {
   getIdByNickname,
   getPlayerRankByGame,
+  getPlayerSingleRankInfo,
 };

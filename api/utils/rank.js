@@ -1,3 +1,5 @@
+const playerControlers = require("../controlers/playerControlers");
+
 // !!!! NEED TO REWORK THIS (not optimal and very simplistic)
 const getNewPlayerPoints = (winnerPoints, looserPoints) => {
   const maxPointsLoose = 50;
@@ -20,6 +22,16 @@ const getNewPlayerPoints = (winnerPoints, looserPoints) => {
   return { pointsWin: pointsWin, pointsLoose: pointsLoose };
 };
 
+// the range is equal to the double of the time that the player is in the queue
+// get the range allowed us to match a player who have his points in the range
+const getPlayerMatchRange = (playerId, gamemodeId) => {
+  const data = playerControlers.getPlayerSingleRankInfo(playerId, gamemodeId);
+  if (data == null) return null;
+  const range = new Date.now().getTime() / 1000 - data.requestDate;
+  return { minRange: data.points - range, maxRange: data.points + range };
+};
+
 module.exports = {
   getNewPlayerPoints,
+  getPlayerMatchRange,
 };
