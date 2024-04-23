@@ -4,7 +4,7 @@ const DB_PATH = "./racingGame.db";
 const getRanks = async () => {
   const ranks = await Database.Read(
     DB_PATH,
-    "SELECT rankId,name,downPoints,upPoints,rankNumber FROM rank;"
+    "SELECT rankId,name,downPoints,upPoints,rankNumber FROM ranks;"
   );
   return ranks;
 };

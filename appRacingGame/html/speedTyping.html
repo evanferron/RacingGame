@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <meta
+      http-equiv="X-Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <title>Racing Game</title>
+    <link rel="stylesheet" href="../css/speedTyping.css" />
+  </head>
+  <body>
+    <header aria-hidden="true">
+      <section class="infosPlayer" id="infosPlayer1">
+        <h2 class="pseudo" id="player1">Pseudo</h2>
+        <progress
+          max="100"
+          value="25"
+          class="progressionBarre"
+          id="progress1"
+        ></progress>
+        <h3 class="points" id="pointsPlayer1">25</h3>
+      </section>
+      <section class="infosPlayer" id="infosPlayer2">
+        <h2 class="pseudo" id="player2">Pseudo</h2>
+        <progress
+          max="100"
+          value="20"
+          class="progressionBarre"
+          id="progress2"
+        ></progress>
+        <h3 class="points" id="pointsPlayer2">20</h3>
+      </section>
+    </header>
+    <main>
+      <form class="game" method="post">
+        <!--action="http://localhost:3000/api/speedTyping"> -->
+        <h2 class="words" id="word" aria-label="Le mot est">Avion</h2>
+        <input
+          type="text"
+          class="input"
+          id="input"
+          placeholder="Rentrer le mot"
+          aria-label="Rentrer le mot"
+        /><span
+          class="error"
+          id="word-error"
+          aria-label="error message word"
+        ></span>
+        <button class="btn-submit" id="btn-submit" aria-label="Valider">
+          Envoyer
+        </button>
+      </form>
+    </main>
+    <footer>
+      <a
+        href="./home.html"
+        class="btn-quit"
+        id="btn-quit"
+        aria-label="Bouton Quiter"
+        >Abandonner
+      </a>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,170 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fefefe;
+}
+
+/* --- Header --- */
+
+header {
+  width: 100%;
+  height: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fefefe;
+}
+
+header .infosPlayer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+}
+
+header #infosPlayer1 {
+  align-items: flex-end;
+}
+
+header #infosPlayer2 {
+  align-items: flex-start;
+}
+
+header .infosPlayer .pseudo {
+  font-size: 2rem;
+  margin: 0 1rem;
+  color: #3e3e3e;
+}
+
+header .infosPlayer .progressionBarre {
+  width: 55rem;
+  height: 2rem;
+  background-color: #3e3e3e;
+  margin: 1rem 0;
+  transform: skew(-20deg);
+  appearance: none;
+}
+
+header .infosPlayer .progressionBarre::-webkit-progress-bar {
+  background-color: #3e3e3e;
+}
+
+header .infosPlayer #progress1::-webkit-progress-value {
+  background-color: blue;
+}
+
+header .infosPlayer #progress2::-webkit-progress-value {
+  background-color: red;
+}
+
+header .infosPlayer #progress2 {
+  direction: rtl;
+}
+
+header .infosPlayer .points {
+  font-size: 1.5rem;
+  margin: 0 1rem;
+  font-weight: 800;
+  color: #3e3e3e;
+}
+
+/* --- Main --- */
+
+main {
+  width: 100%;
+  height: 70vh;
+  background-color: #fefefe;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+main .game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 36.784vw;
+  height: 60vh;
+}
+
+main .game .words {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 21vw;
+  height: 10vh;
+  color: #3e3e3e;
+  background-color: #fefefe;
+  font-size: 3rem;
+  font-weight: 700;
+  font-weight: bold;
+}
+
+main .game input {
+  width: 31.529vw;
+  height: 6vh;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  outline: none;
+  color: #3e3e3e;
+  font-size: 1.125rem;
+  font-weight: bold;
+  padding-left: 1rem;
+}
+
+main .game input::placeholder {
+  color: #3e3e3e;
+  font-size: 1.125rem;
+  font-weight: bold;
+  padding-left: 1rem;
+}
+
+main .game .btn-submit {
+  width: 15.765vw;
+  height: 6vh;
+  border: none;
+  outline: none;
+  background-color: #3e3e3e;
+  color: #fefefe;
+  font-size: 1.125rem;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- Footer --- */
+
+footer {
+  width: 100%;
+  height: 10vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fefefe;
+}
+
+footer .btn-quit {
+  color: #fefefe;
+  background-color: red;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  font-weight: bold;
+  border-radius: 10px;
+}

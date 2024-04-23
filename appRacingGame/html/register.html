@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <meta
+      http-equiv="X-Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <title>Racing Game</title>
+    <link rel="stylesheet" href="../css/register.css" />
+  </head>
+  <body>
+    <main>
+      <h1 class="title" aria-hidden="true">Register</h1>
+      <form
+        class="form-register"
+        method="post"
+        action="http://localhost:3000/api/auth/register"
+        aria-label="Formulaire d'inscription"
+      >
+        <input
+          type="text"
+          name="nickname"
+          placeholder="Pseudo"
+          aria-label="pseudo"
+        />
+        <span
+          class="error"
+          id="pseudo-error"
+          aria-label="error message pseudo"
+        ></span>
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          aria-label="email"
+        />
+        <span
+          class="error"
+          id="mail-error"
+          aria-label="error message mail"
+        ></span>
+        <input
+          type="password"
+          name="password"
+          placeholder="Mot de passe"
+          aria-label="mot de passe"
+        />
+        <span
+          class="error"
+          id="password-error"
+          aria-label="error message password"
+        ></span>
+
+        <button
+          class="btn-submit"
+          type="submit"
+          aria-label="Confirm"
+          role="button"
+        >
+          Envoyer
+        </button>
+      </form>
+      <a
+        class="btn-login"
+        href="login.html"
+        aria-label="Bouton login"
+        role="button"
+      >
+        J'ai déjà un compte !
+      </a>
+    </main>
+  </body>
+</html>
