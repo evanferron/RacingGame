@@ -1,7 +1,7 @@
 const checkData = require("./checkData");
 const SpeedTyping = require("../gamemode/speedTyping");
 
-const joinRoom = (rooms, roomId, userId, gamemode, rank, socket) => {
+exports.joinRoom = (rooms, roomId, userId, gamemode, rank, socket) => {
   if (!rooms[roomId]) {
     if (checkData.checkGamemodeName(gamemode) && checkData.checkRank(rank)) {
       rooms[roomId] = {
@@ -37,5 +37,3 @@ const joinRoom = (rooms, roomId, userId, gamemode, rank, socket) => {
   }
   socket.join(roomId);
 };
-
-export default joinRoom;

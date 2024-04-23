@@ -10,7 +10,7 @@ dotenv.config();
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
-InitSocketSystem(io);
+InitSocketSystem.InitSocketSystem(io);
 
 const PORT = process.env.PORT || 3000;
 
@@ -22,23 +22,3 @@ app.listen(PORT, () => {
   console.log("Server started ! http://localhost:3001");
   console.log(`Server now listening on ${PORT}`);
 });
-
-// // client.js
-
-// const socket = require('socket.io-client')('http://localhost:3000');
-
-// // Événement pour rejoindre une salle de jeu
-// socket.emit('joinRoom', 'roomId', 'userId');
-
-// // Événement pour envoyer une action
-// socket.emit('playerAction', 'roomId', { /* action data */ });
-
-// // Écouter les mises à jour du jeu depuis le serveur
-// socket.on('updateGame', (data) => {
-//     // Mettre à jour l'état du jeu en fonction des données reçues
-// });
-
-// // Gestion des déconnexions
-// socket.on('disconnect', () => {
-//     // Code de gestion de la déconnexion
-// });

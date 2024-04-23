@@ -1,6 +1,6 @@
-import MainGamemode from "./mainGamemode";
+const MainGamemode = require("./mainGamemode");
 
-class SpeedTyping extends MainGamemode {
+class SpeedTyping extends MainGamemode.MainGamemode {
   words = [];
 
   constructor() {
@@ -80,4 +80,6 @@ class SpeedTyping extends MainGamemode {
   }
 }
 
-export default SpeedTyping;
+module.exports = {
+  SpeedTyping,
+};

@@ -1,4 +1,4 @@
-const playerAction = (rooms, roomId, playerAction) => {
+exports.playerAction = (rooms, roomId, playerAction) => {
   // action possible mode random:
   //  lance le dé
   //  quitte la partie
@@ -8,5 +8,3 @@ const playerAction = (rooms, roomId, playerAction) => {
   rooms[roomId].game.playerAction(playerAction.playerId, playerAction);
   io.to(roomId).emit("updateGame", rooms[rooms].game.getGameData());
 };
-
-export default playerAction;

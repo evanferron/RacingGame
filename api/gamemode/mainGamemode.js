@@ -28,3 +28,7 @@ class MainGamemode {
   //   data is an object that contain the name of the action
   playerAction(player, data) {}
 }
+
+module.exports = {
+  MainGamemode,
+};
