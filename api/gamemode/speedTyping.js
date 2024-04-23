@@ -3,6 +3,10 @@ import MainGamemode from "./mainGamemode";
 class SpeedTyping extends MainGamemode {
   words = [];
 
+  constructor() {
+    super();
+  }
+
   initData() {
     this.fillWords;
   }
@@ -17,26 +21,50 @@ class SpeedTyping extends MainGamemode {
         this.checkAttempt(player, data.word);
         break;
       case "disconnected":
-        // To do 
+      // To do
     }
   }
+
+  getGameData(player) {
+    if (this.isGameEnd) {
+      return {
+        player1: this.player1,
+        player2: this.player2,
+        isGameEnd: this.isGameEnd,
+      };
+    }
+    return {
+      player1: this.player1,
+      player2: this.player2,
+      isGameEnd: this.isGameEnd,
+      currentWord:
+        player == this.player1.id
+          ? words[this.player1.lvl]
+          : words[this.player2.lvl],
+      error: this.playerActionStatus,
+    };
+  }
+
   checkAttempt(player, word) {
+    this.playerActionStatus = "";
     if (!this.isGameEnd) {
-      if (player == player1) {
-        if (words[this.player1Lvl] === word) {
-          this.player1Lvl++;
-          if (this.player1Lvl == 10) {
+      if (player == this.player1.id) {
+        if (words[this.player1.lvl] === word) {
+          this.player1.lvl++;
+          if (this.player1.lvl == 10) {
             this.isGameEnd = true;
-            // player 1 win
           }
-        } else if (player == player2) {
-          if (words[this.player2Lvl] === word) {
-            this.player2Lvl++;
-            if (this.player2Lvl == 10) {
-              this.isGameEnd = true;
-              // player 2 win
-            }
+        } else {
+          this.playerActionStatus = "Mauvais mot";
+        }
+      } else if (player == this.player2.id) {
+        if (words[this.player2.lvl] === word) {
+          this.player2.lvl++;
+          if (this.player2.lvl == 10) {
+            this.isGameEnd = true;
           }
+        } else {
+          this.playerActionStatus = "Mauvais mot";
         }
       }
     }

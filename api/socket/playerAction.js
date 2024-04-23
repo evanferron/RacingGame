@@ -5,8 +5,8 @@ const playerAction = (rooms, roomId, playerAction) => {
   // action possible mode fastTyping:
   //  entre un mot
   //  quitte la partie
-  // io.to(roomId).emit('updateGame', actionData);
-  
+  rooms[roomId].game.playerAction(playerAction.playerId, playerAction);
+  io.to(roomId).emit("updateGame", rooms[rooms].game.getGameData());
 };
 
 export default playerAction;

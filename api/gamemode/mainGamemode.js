@@ -8,7 +8,8 @@ class MainGamemode {
     lvl: 0,
   };
   rank;
-  isGameEnd;
+  isGameEnd = false;
+  playerActionStatus = "";
 
   constructor(player1, player2, rank) {
     this.player1.id = player1;
@@ -18,6 +19,8 @@ class MainGamemode {
   }
 
   // those method are
+
+  getGameData() {}
 
   initData() {}
 
