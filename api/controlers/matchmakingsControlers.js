@@ -1,22 +1,24 @@
 const Database = require("../Database.js");
 const DB_PATH = "./racingGame.db";
-const playerControlers = require("../controlers/playerControlers.js");
+const playerControlers = require("./playerControlers.js");
+const ranksControlers = require("./rankControlers.js");
+const gameControlers = require("./gameControlers.js");
 
 const addMatchmaking = async (req, res) => {
   const player = req.body;
   const date = new Date.now().getTime() / 1000;
 
   try {
-    const player = await Database.Read(
+    const playerdata = await Database.Read(
       DB_PATH,
       "SELECT playerId,requestDate FROM matchmaking WHERE playerId = ?;",
       player.playerId
     );
-    if (player.length > 0) {
+    if (playerdata.length > 0) {
       const err = await Database.Write(
         DB_PATH,
         "DELETE FROM matchmaking WHERE playerId = ?;",
-        player.playerId
+        playerdata.playerId
       );
       if (err != null) {
         console.log(err);
@@ -31,9 +33,9 @@ const addMatchmaking = async (req, res) => {
     const err = await Database.Write(
       DB_PATH,
       "INSERT INTO matchmaking(playerId,requestDate,gamemodeId) VALUES(?,?,?);",
-      player.playerId,
+      playerdata.playerId,
       date,
-      player.gamemodeId
+      playerdata.gamemodeId
     );
     if (err != null) {
       console.log(err);
@@ -64,5 +66,26 @@ const manageMatchmaking = async (req, res) => {
     range.maxRange,
     player.gamemodeId
   );
-  // TO DO : create party
+  if (possibleOpponents.length > 0) {
+    // TO DO : create party
+    const playerData = await playerControlers.getPlayerSingleRankInfo(
+      player.playerId,
+      player.gamemodeId
+    );
+    const gamemode = gameControlers.getGamemodeById(player.gamemodeId);
+    const rank = ranksControlers.getRankById(playerData.rankId);
+    res.json({
+      roomId: player.playerId + "-" + possibleOpponents[0].playerId,
+      rank: rank.name,
+      gamemode: gamemode.name,
+      userId: player.playerId,
+    });
+  } else {
+    res.status(201).send("still searching an opponent");
+  }
+};
+
+module.exports = {
+  addMatchmaking,
+  manageMatchmaking,
 };

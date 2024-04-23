@@ -5,6 +5,7 @@ class SpeedTyping extends MainGamemode.MainGamemode {
 
   constructor() {
     super();
+    this.gamemode = "SpeedTyping";
   }
 
   initData() {
@@ -36,22 +37,29 @@ class SpeedTyping extends MainGamemode.MainGamemode {
 
   getGameData(player) {
     if (this.isGameEnd) {
+      if (this.player1.lvl == 10) this.end(this.player1.id, this.player2.id);
+      else this.end(this.player2.id, this.player1.id);
       return {
         player1: this.player1,
         player2: this.player2,
         isGameEnd: this.isGameEnd,
       };
     }
-    return {
-      player1: this.player1,
-      player2: this.player2,
-      isGameEnd: this.isGameEnd,
-      currentWord:
-        player == this.player1.id
-          ? words[this.player1.lvl]
-          : words[this.player2.lvl],
-      error: this.playerActionStatus,
-    };
+    return player == this.player1.id
+      ? {
+          you: this.player1,
+          opponent: this.player2,
+          isGameEnd: this.isGameEnd,
+          currentWord: words[this.player1.lvl],
+          error: this.playerActionStatus,
+        }
+      : {
+          you: this.player2,
+          opponent: this.player1,
+          isGameEnd: this.isGameEnd,
+          currentWord: words[this.player1.lvl],
+          error: this.playerActionStatus,
+        };
   }
 
   checkAttempt(player, word) {

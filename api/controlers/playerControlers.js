@@ -22,9 +22,9 @@ const getPlayerRankByGame = async (nickname, gamemodeId) => {
       gamemodeId
     );
     const rankInfo = rankControlers.getRankById(playerRank.rankId);
-    const nextRankInfo = rankInfo.nextRank
-      ? rankControlers.getRankByName(playerRank.rankId)
-      : null;
+    // const nextRankInfo = rankInfo.nextRank
+    //   ? rankControlers.getRankByName(playerRank.rankId)
+    //   : null;
     return {
       playerId: playerId,
       points: points,
