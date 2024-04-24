@@ -57,8 +57,25 @@ const getPlayerSingleRankInfo = async (playerId, gamemodeId) => {
   }
 };
 
+const getPlayerData = async (req, res) => {
+  const playerId = req.body.playerId;
+  try {
+    // TO DO : make the request to get player data that are necessary to the client
+    const player = await Database.Read(
+      DB_PATH,
+      "SELECT points,gamemodeId,rankId,gamemode.name,ranks.name FROM playersRank LEFT JOIN gamemode ON playersRank.gamemodeId = gamemode.gamemodeId LEFT JOIN ranks ON playersRank.rankId = ranks.rankId WHERE playerId = ?;",
+      playerId
+    );
+    res.json({ data: player });
+  } catch (error) {
+    console.error(error);
+    res.status(501).send("Cannot get player data");
+  }
+};
+
 module.exports = {
   getIdByNickname,
   getPlayerRankByGame,
   getPlayerSingleRankInfo,
+  getPlayerData,
 };
