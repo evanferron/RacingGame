@@ -39,7 +39,7 @@
     <main>
       <form class="game" method="post">
         <!--action="http://localhost:3000/api/speedTyping"> -->
-        <h2 class="words" id="word" aria-label="Le mot est">Avion</h2>
+        <div class="words"><h2  id="word" aria-label="Le mot est">Avion</h2></div>
         <input
           type="text"
           class="input"
@@ -52,7 +52,7 @@
           aria-label="error message word"
         ></span>
         <button class="btn-submit" id="btn-submit" aria-label="Valider">
-          Envoyer
+          <span>Envoyer</span>
         </button>
       </form>
     </main>
@@ -62,7 +62,7 @@
         class="btn-quit"
         id="btn-quit"
         aria-label="Bouton Quiter"
-        >Abandonner
+        ><span>Abandonner</span>
       </a>
     </footer>
   </body>

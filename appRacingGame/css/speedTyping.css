@@ -13,18 +13,27 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #fefefe;
+  background-image: url(../img/FD_Game.svg);
+  background-size: cover;
+  background-position: center;
 }
 
 /* --- Header --- */
 
 header {
-  width: 100%;
-  height: 20vh;
+  top: 0;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 0;
+  width: 90vw;
+  border-top: 9.375rem solid #fefefe;
+  border-left: 3vw solid transparent;
+  border-right: 3vw solid transparent;
+  border-bottom-left-radius: 110px;
+  border-bottom-right-radius: 110px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  background-color: #fefefe;
 }
 
 header .infosPlayer {
@@ -32,41 +41,46 @@ header .infosPlayer {
   flex-direction: column;
   justify-content: center;
   width: 50%;
+  height: 9.375rem;
 }
 
 header #infosPlayer1 {
   align-items: flex-end;
+  position: absolute;
+  bottom: 0;
 }
 
 header #infosPlayer2 {
   align-items: flex-start;
+  position: absolute;
+    bottom: 0;
+    right: 0;
 }
 
 header .infosPlayer .pseudo {
   font-size: 2rem;
-  margin: 0 1rem;
+  margin: 0 3rem;
   color: #3e3e3e;
 }
 
 header .infosPlayer .progressionBarre {
-  width: 55rem;
-  height: 2rem;
+  width: 50rem;
+  height: 2.5rem;
   background-color: #3e3e3e;
-  margin: 1rem 0;
-  transform: skew(-20deg);
   appearance: none;
 }
 
 header .infosPlayer .progressionBarre::-webkit-progress-bar {
   background-color: #3e3e3e;
+  border-radius: 10px;
 }
 
 header .infosPlayer #progress1::-webkit-progress-value {
-  background-color: blue;
+  background-color: #3A61EB;
 }
 
 header .infosPlayer #progress2::-webkit-progress-value {
-  background-color: red;
+  background-color: #FB4444;
 }
 
 header .infosPlayer #progress2 {
@@ -75,9 +89,21 @@ header .infosPlayer #progress2 {
 
 header .infosPlayer .points {
   font-size: 1.5rem;
-  margin: 0 1rem;
-  font-weight: 800;
-  color: #3e3e3e;
+    margin: 0 3rem;
+    font-weight: 800;
+    background-color: #3E3E3E;
+    color: #fefefe;
+    height: 2.5rem;
+    width: 5rem;
+    text-align: center;
+}
+
+header .infosPlayer #pointsPlayer1 {
+  background-color: #3A61EB;
+}
+
+header .infosPlayer #pointsPlayer2 {
+  background-color: #FB4444;
 }
 
 /* --- Main --- */
@@ -85,7 +111,7 @@ header .infosPlayer .points {
 main {
   width: 100%;
   height: 70vh;
-  background-color: #fefefe;
+  background: none;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -96,75 +122,123 @@ main .game {
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  width: 36.784vw;
-  height: 60vh;
+  width: 80vw;
+  height: 70vh;
 }
 
 main .game .words {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 21vw;
-  height: 10vh;
-  color: #3e3e3e;
-  background-color: #fefefe;
+  top: 9.37rem;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 0;
+    width: 52.25rem;
+    border-top: 6.25rem solid #3e3e3e;
+    color: #fefefe;
+    border-left: 2rem solid transparent;
+    border-right: 2rem solid transparent;
+    border-bottom-left-radius: 110px;
+    border-bottom-right-radius: 110px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+main .game .words h2 {
+  position: relative;
   font-size: 3rem;
-  font-weight: 700;
-  font-weight: bold;
+  color: #fefefe;
+  font-weight: 800;
+  bottom: 1rem;
 }
 
 main .game input {
-  width: 31.529vw;
-  height: 6vh;
-  border: 1px solid #ccc;
+  position: absolute;
+  transform: translateY(-50%);
+  width: 50rem;
+  height: 5rem;
+  border: 1px solid #fefefe;
   border-radius: 10px;
   outline: none;
   color: #3e3e3e;
-  font-size: 1.125rem;
+  font-size: 1.5rem;
   font-weight: bold;
   padding-left: 1rem;
+  box-shadow: 0 0 10px #3e3e3e;
 }
 
 main .game input::placeholder {
   color: #3e3e3e;
-  font-size: 1.125rem;
+  font-size: 1.5rem;
   font-weight: bold;
   padding-left: 1rem;
 }
 
 main .game .btn-submit {
-  width: 15.765vw;
-  height: 6vh;
-  border: none;
-  outline: none;
-  background-color: #3e3e3e;
-  color: #fefefe;
-  font-size: 1.125rem;
-  font-weight: 700;
+  bottom: 6.25rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 0;
+  width: 40.75rem;
+  border-bottom: 5rem solid #3e3e3e;
+  border-left: 1.5rem solid transparent;
+  border-right: 1.5rem solid transparent;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  background: none;
   cursor: pointer;
-  border-radius: 10px;
   display: flex;
-  align-items: center;
-  justify-content: center;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+main .game .btn-submit span {
+  position: relative;
+  font-size: 2rem;
+  color: #fefefe;
+  font-weight: 800;
+  top: 1rem;
 }
 
 /* --- Footer --- */
 
 footer {
-  width: 100%;
-  height: 10vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #fefefe;
+  bottom: 0;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 0;
+  width: 90vw;
+  border-bottom: 6.25rem solid #fefefe;
+  border-left: 3vw solid transparent;
+  border-right: 3vw solid transparent;
+  border-top-left-radius: 110px;
+  border-top-right-radius: 110px;
 }
 
 footer .btn-quit {
+  top: 1.25rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 0;
+  width: 23rem;
+  border-top: 3.75rem solid #3e3e3e;
+  border-left: 2rem solid transparent;
+  border-right: 2rem solid transparent;
+  border-radius: 20px;
+  border-bottom-left-radius: 110px;
+  border-bottom-right-radius: 110px;
+  display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+footer .btn-quit span {
+  position: relative;
+  font-size: 1.5rem;
   color: #fefefe;
-  background-color: red;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  font-weight: 700;
-  font-weight: bold;
-  border-radius: 10px;
+  font-weight: 800;
+  bottom: 1rem;
 }
