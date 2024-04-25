@@ -4,6 +4,8 @@ const dotenv = require("dotenv");
 const rankControlers = require("./rankControlers");
 const playerControlers = require("./playerControlers");
 const gameControlers = require("./gameControlers");
+const AuthError = require("../error/authError.js");
+const checkData = require("../utils/checkData.js");
 const Database = require("../Database.js");
 
 dotenv.config();
@@ -11,9 +13,28 @@ dotenv.config();
 const SECRET_KEY = process.env.SECRET_KEY;
 const DB_PATH = process.env.DB_PATH;
 
+// error name :
+//  - alreadyRegister
+//  - cannotInsert
+//  - cannotInitialise
+//  - invalidEmailFormat
+//  - invalidPasswordFormat
+//  - invalidNicknameFormat
 const register = async (req, res) => {
   const player = req.body;
   try {
+    checkData.handleAuthTest(player.nickname, player.password, player.email); // it throw an error if ther is an invalid data format
+    const isAlreadyRegister = await playerControlers.isAlreadyRegister(
+      player.nickname,
+      player.email
+    );
+    if (isAlreadyRegister) {
+      throw new AuthError(
+        "alreadyRegister",
+        "A player already exist with one/both of id(s)(nickname/email)",
+        400
+      );
+    }
     const password = await bcrypt.hash(player.password, 10);
     let err = await Database.Write(
       DB_PATH,
@@ -22,33 +43,53 @@ const register = async (req, res) => {
       player.email,
       password
     );
-    if (err != null) {
-      console.error(err);
-      res.json({ status: false });
-      return;
+    if (!err) {
+      throw new AuthError(
+        "cannotInsert",
+        "Cannot insert player in the database :" + err,
+        500
+      );
     }
     err = await initPlayerData(player.nickname);
     if (!err) {
-      console.log("an error happend when trie to initialise data");
-      return;
+      throw new AuthError(
+        "cannotInitialise",
+        "cannot initialise player data : " + err,
+        500
+      );
     }
     res.status(201).send("User registered successfully");
   } catch (err) {
     console.log(err);
-    res.status(500).send("Error registering user");
+    if (err.signal) {
+      console.log(err.name, " : ", err.message);
+      res.status(err.signal).send("Error registering user");
+    } else {
+      console.log(err);
+      res.status(500).send("Error registering user");
+    }
   }
 };
 
+// error name :
+//  - inexistantNickname
+//  - invalidPassword
 const login = async (req, res) => {
   const player = req.body;
-  // TO DO : check data format
-  const user = await Database.Read(
-    DB_PATH,
-    "SELECT playerId,password FROM players WHERE nickname=?;",
-    player.nickname
-  );
-  if (user == null) return res.status(400).send("User not found");
   try {
+    checkData.handleAuthTest(player.nickname, player.password); // it throw an error if ther is an invalid data format
+    const user = await Database.Read(
+      DB_PATH,
+      "SELECT playerId,password FROM players WHERE nickname=?;",
+      player.nickname
+    );
+    if (user == null) {
+      throw new AuthError(
+        "inexistantNickname",
+        "There isn't any player with the nickname : " + player.nickname,
+        400
+      );
+    }
     if (await bcrypt.compare(player.password, user.password)) {
       const rank = await Database.Read(
         DB_PATH,
@@ -58,11 +99,16 @@ const login = async (req, res) => {
       const accessToken = jwt.sign({ playerId: user.playerId }, SECRET_KEY);
       res.json({ accessToken: accessToken, rank: rank });
     } else {
-      res.status(401).send("Invalid password");
+      throw AuthError("invalidPassword", "the password is not valide", 401);
     }
   } catch (err) {
-    console.log(err);
-    res.status(500).send("Error logging in");
+    if (err.signal) {
+      console.log(err.name, " : ", err.message);
+      res.status(err.signal).send(err.name + ":" + err.message);
+    } else {
+      console.log(err);
+      res.status(500).send("Error logging in");
+    }
   }
 };
 

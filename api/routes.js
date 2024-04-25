@@ -12,6 +12,7 @@ router.post("/auth/register", authControlers.register);
 
 // add the player to the matchmakings
 router.post("/play", matchmakingsControlers.addMatchmaking);
+// check if there is any opponents
 router.post("/play/waiting", matchmakingsControlers.manageMatchmaking);
 
 // need playerId in req.body

@@ -73,9 +73,32 @@ const getPlayerData = async (req, res) => {
   }
 };
 
+// return true if a player already exist with one of the ids in parametre
+const isAlreadyRegister = async (nickname, email) => {
+  try {
+    const players = await Database.Read(
+      DB_PATH,
+      "SELECT playerId FROM players WHERE nickname = ? OR email = ?;",
+      nickname,
+      email
+    );
+    return players.length > 0;
+  } catch (error) {
+    console.error(
+      "Cannot check if an user is already register with ids : ",
+      nickname,
+      email,
+      "\n error :",
+      error
+    );
+    return true;
+  }
+};
+
 module.exports = {
   getIdByNickname,
   getPlayerRankByGame,
   getPlayerSingleRankInfo,
   getPlayerData,
+  isAlreadyRegister,
 };
