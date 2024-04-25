@@ -97,7 +97,7 @@ const login = async (req, res) => {
         user.playerId
       );
       const accessToken = jwt.sign({ playerId: user.playerId }, SECRET_KEY);
-      res.json({ accessToken: accessToken, rank: rank });
+      res.json({ satus: 202, accessToken: accessToken, rank: rank });
     } else {
       throw AuthError("invalidPassword", "the password is not valide", 401);
     }
