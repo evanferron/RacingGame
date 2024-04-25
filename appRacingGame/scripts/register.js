@@ -1,6 +1,4 @@
-import axios from "axios";
-
-document.getElementById("form-register").addEventListener("submit", register);
+const axios = require("axios");
 
 async function register(event) {
   event.preventDefault();
@@ -34,3 +32,5 @@ async function register(event) {
     alert("An error occurred. Please try again later.");
   }
 }
+
+document.getElementById("form-register").addEventListener("submit", register);

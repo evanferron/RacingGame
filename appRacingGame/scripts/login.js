@@ -1,3 +1,5 @@
+const axios = require("axios");
+
 async function login(event) {
   event.preventDefault();
 
@@ -20,7 +22,7 @@ async function login(event) {
     if (response.status === 200) {
       alert("Registration successful");
       // Redirect to the login page
-      window.location.href = "../html/home.html";
+      window.location.href = "home.html";
     } else {
       alert("Error: " + response.data);
     }
