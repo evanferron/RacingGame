@@ -21,15 +21,15 @@ async function register(event) {
       credentials
     );
 
-    if (response.status === 200) {
-      alert("Registration successful");
+    if (response.status === 201) {
+      console.log("Registration successful");
       window.location.href = "login.html";
     } else {
-      alert("Error: " + response.data);
+      console.error("Error: " + response.data);
     }
   } catch (error) {
     console.error("Error:", error);
-    alert("An error occurred. Please try again later.");
+    console.log("An error occurred. Please try again later.");
   }
 }
 

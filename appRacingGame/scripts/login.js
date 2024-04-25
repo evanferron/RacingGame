@@ -19,16 +19,16 @@ async function login(event) {
       credentials
     );
 
-    if (response.status === 200) {
-      alert("Registration successful");
+    if (response.status === 202) {
+      console.log("Registration successful");
       // Redirect to the login page
       window.location.href = "home.html";
     } else {
-      alert("Error: " + response.data);
+      console.error("Error: " + response.data);
     }
   } catch (error) {
     console.error("Error:", error);
-    alert("An error occurred. Please try again later.");
+    console.log("An error occurred. Please try again later.");
   }
 }
 
