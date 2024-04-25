@@ -2,14 +2,6 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    />
-    <meta
-      http-equiv="X-Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    />
     <title>Racing Game</title>
     <link rel="stylesheet" href="../css/register.css" />
   </head>
@@ -18,12 +10,13 @@
       <h1 class="title" aria-hidden="true">Register</h1>
       <form
         class="form-register"
+        id="form-register"
         method="post"
-        action="http://localhost:3000/api/auth/register"
         aria-label="Formulaire d'inscription"
       >
         <input
           type="text"
+          id="nickname"
           name="nickname"
           placeholder="Pseudo"
           aria-label="pseudo"
@@ -35,6 +28,7 @@
         ></span>
         <input
           type="email"
+          id="email"
           name="email"
           placeholder="Email"
           aria-label="email"
@@ -46,6 +40,7 @@
         ></span>
         <input
           type="password"
+          id="password"
           name="password"
           placeholder="Mot de passe"
           aria-label="mot de passe"
@@ -75,4 +70,5 @@
       </a>
     </main>
   </body>
+  <script type="module" src="../scripts/register.js"></script>
 </html>

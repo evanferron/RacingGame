@@ -29,7 +29,7 @@ const register = async (req, res) => {
       player.email
     );
     if (isAlreadyRegister) {
-      throw new AuthError(
+      throw new AuthError.AuthError(
         "alreadyRegister",
         "A player already exist with one/both of id(s)(nickname/email)",
         400
@@ -43,8 +43,9 @@ const register = async (req, res) => {
       player.email,
       password
     );
-    if (!err) {
-      throw new AuthError(
+    if (err != null) {
+      console.log(player.nickname, player.email, password);
+      throw new AuthError.AuthError(
         "cannotInsert",
         "Cannot insert player in the database :" + err,
         500
@@ -52,7 +53,7 @@ const register = async (req, res) => {
     }
     err = await initPlayerData(player.nickname);
     if (!err) {
-      throw new AuthError(
+      throw new AuthError.AuthError(
         "cannotInitialise",
         "cannot initialise player data : " + err,
         500
@@ -84,22 +85,30 @@ const login = async (req, res) => {
       player.nickname
     );
     if (user == null) {
-      throw new AuthError(
+      throw new AuthError.AuthError(
         "inexistantNickname",
         "There isn't any player with the nickname : " + player.nickname,
         400
       );
     }
-    if (await bcrypt.compare(player.password, user.password)) {
+    let bcryptStatus;
+    bcrypt.compare(player.password, user[0].password, (err, result) => {
+      bcryptStatus = result;
+    });
+    if (!bcryptStatus) {
       const rank = await Database.Read(
         DB_PATH,
-        "SELECT name,points,ranks.name,gamemode.name FROM playersRank LEFT JOIN gamemode ON playersRank.gamemodeId = gamemode.gamemodeId LEFT JOIN ranks ON playersRank.rankId = ranks.rankId WHERE playerId = ?;",
+        "SELECT points,ranks.name AS rankName,gamemode.name AS gamemodeName FROM playersRank LEFT JOIN gamemode ON playersRank.gamemodeId = gamemode.gamemodeId LEFT JOIN ranks ON playersRank.rankId = ranks.rankId WHERE playerId = ?;",
         user.playerId
       );
       const accessToken = jwt.sign({ playerId: user.playerId }, SECRET_KEY);
-      res.json({ satus: 202, accessToken: accessToken, rank: rank });
+      res.status(202).send({ accessToken: accessToken, rank: rank });
     } else {
-      throw AuthError("invalidPassword", "the password is not valide", 401);
+      throw new AuthError.AuthError(
+        "invalidPassword",
+        "the password is not valide",
+        401
+      );
     }
   } catch (err) {
     if (err.signal) {

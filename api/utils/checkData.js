@@ -28,23 +28,23 @@ const checkRank = (rank) => {
 
 const handleAuthTest = (nickname, password, email = "exemple@exemple.com") => {
   if (!testEmail(email)) {
-    throw new AuthError(
+    throw new AuthError.AuthError(
       "invalidEmailFormat",
       "The format is not valid for the email : " + player.email,
       400
     );
   }
   if (!testNickname(nickname)) {
-    throw new AuthError(
+    throw new AuthError.AuthError(
       "invalidNicknameFormat",
       "The format is not valid for the nickname : " + player.nickname,
       400
     );
   }
-  if (!testPassword(password)) {
-    throw new AuthError(
+  if (testPassword(password)) {
+    throw new AuthError.AuthError(
       "invalidPasswordFormat",
-      "caracters ( [ ' ; ] ) are not allowed",
+      "caracters ( [ ' ; ] ) are not allowed : " + password,
       400
     );
   }

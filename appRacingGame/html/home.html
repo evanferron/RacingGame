@@ -2,14 +2,6 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    />
-    <meta
-      http-equiv="X-Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    />
     <title>Racing Game</title>
     <link rel="stylesheet" href="../css/home.css" />
   </head>
@@ -17,18 +9,13 @@
     <header>
       <nav role="menubar">
         <ul>
-          <li><h2 aria-label="Votre pseudo">Pseudo</h2></li>
-          <li><h1>Racing Game</h1></li>
-          <li>
-            <a href="register.html" aria-label="Bouton déconnecter"
-              >Se déconnecter
-            </a>
-          </li>
+          <h1>Racing Game</h1>
         </ul>
       </nav>
     </header>
     <main>
       <a
+        href="./dice.html"
         class="card"
         id="card-dice"
         aria-label="Renter dans le jeu"
@@ -49,5 +36,10 @@
       </a>
       <section class="card" id="card-soon" aria-hidden="true"></section>
     </main>
+    <footer>
+      <a class="btn-quit" href="register.html" aria-label="Bouton déconnecter"
+        ><span>Se déconnecter</span>
+      </a>
+    </footer>
   </body>
 </html>

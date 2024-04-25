@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Racing Game</title>
-    <link rel="stylesheet" href="../css/speedTyping.css" />
+    <link rel="stylesheet" href="../css/dice.css" />
   </head>
   <body>
     <header aria-hidden="true">
@@ -29,26 +29,18 @@
       </section>
     </header>
     <main>
-      <form class="game" method="post">
-        <!--action="http://localhost:3000/api/speedTyping"> -->
-        <div class="words">
-          <h2 id="word" aria-label="Le mot est">Avion</h2>
+      <div class="title">
+        <h1 aria-label="Titre">Dice</h1>
+      </div>
+      <section class="infosDice">
+        <img class="imgDice" src="../img/dice.png" alt="" />
+        <div class="nbDice">
+          <h2 aria-label="Le dé est">6</h2>
         </div>
-        <input
-          type="text"
-          class="input"
-          id="input"
-          placeholder="Rentrer le mot"
-          aria-label="Rentrer le mot"
-        /><span
-          class="error"
-          id="word-error"
-          aria-label="error message word"
-        ></span>
-        <button class="btn-submit" id="btn-submit" aria-label="Valider">
-          <span>Envoyer</span>
-        </button>
-      </form>
+      </section>
+      <button class="btn-submit" id="btn-submit" aria-label="Valider">
+        <span>Lancer</span>
+      </button>
     </main>
     <footer>
       <a

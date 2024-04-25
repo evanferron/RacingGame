@@ -2,24 +2,21 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    />
-    <meta
-      http-equiv="X-Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    />
     <title>Racing Game</title>
     <link rel="stylesheet" href="../css/register.css" />
   </head>
   <body>
     <main>
       <h1 class="title" aria-hidden="true">Login</h1>
-      <form class="form-login" aria-label="Formulaire de connexion">
+      <form
+        class="form-login"
+        id="form-login"
+        aria-label="Formulaire de connexion"
+      >
         <input
           type="text"
-          name="pseudo"
+          id="nickname"
+          name="nickname"
           placeholder="Pseudo"
           aria-label="pseudo"
         />
@@ -30,6 +27,7 @@
         ></span>
         <input
           type="password"
+          id="password"
           name="password"
           placeholder="Mot de passe"
           aria-label="mot de passe"
@@ -59,4 +57,5 @@
       </a>
     </main>
   </body>
+  <script src="../scripts/login.js"></script>
 </html>
