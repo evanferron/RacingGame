@@ -22,9 +22,9 @@ const getPlayerRankByGame = async (nickname, gamemodeId) => {
       gamemodeId
     );
     const rankInfo = rankControlers.getRankById(playerRank.rankId);
-    const nextRankInfo = rankInfo.nextRank
-      ? rankControlers.getRankByName(playerRank.rankId)
-      : null;
+    // const nextRankInfo = rankInfo.nextRank
+    //   ? rankControlers.getRankByName(playerRank.rankId)
+    //   : null;
     return {
       playerId: playerId,
       points: points,
@@ -57,8 +57,48 @@ const getPlayerSingleRankInfo = async (playerId, gamemodeId) => {
   }
 };
 
+const getPlayerData = async (req, res) => {
+  const playerId = req.body.playerId;
+  try {
+    // TO DO : make the request to get player data that are necessary to the client
+    const player = await Database.Read(
+      DB_PATH,
+      "SELECT points,gamemodeId,rankId,gamemode.name,ranks.name FROM playersRank LEFT JOIN gamemode ON playersRank.gamemodeId = gamemode.gamemodeId LEFT JOIN ranks ON playersRank.rankId = ranks.rankId WHERE playerId = ?;",
+      playerId
+    );
+    res.json({ data: player });
+  } catch (error) {
+    console.error(error);
+    res.status(501).send("Cannot get player data");
+  }
+};
+
+// return true if a player already exist with one of the ids in parametre
+const isAlreadyRegister = async (nickname, email) => {
+  try {
+    const players = await Database.Read(
+      DB_PATH,
+      "SELECT playerId FROM players WHERE nickname = ? OR email = ?;",
+      nickname,
+      email
+    );
+    return players.length > 0;
+  } catch (error) {
+    console.error(
+      "Cannot check if an user is already register with ids : ",
+      nickname,
+      email,
+      "\n error :",
+      error
+    );
+    return true;
+  }
+};
+
 module.exports = {
   getIdByNickname,
   getPlayerRankByGame,
   getPlayerSingleRankInfo,
+  getPlayerData,
+  isAlreadyRegister,
 };

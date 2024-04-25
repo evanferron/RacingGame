@@ -2,16 +2,15 @@ const Database = require("../Database.js");
 const DB_PATH = "./racingGame.db";
 const playerControlers = require("./playerControlers.js");
 const rankUtils = require("../utils/rank.js");
+const rankControlers = require("./rankControlers.js");
 
-const addGame = async (req, res) => {
-  const game = req.body;
-
-  let err = await Database.Write(
+const addGame = async (winner, looser, gamemode) => {
+  const err = await Database.Write(
     DB_PATH,
     "INSERT INTO history (winnerId,loserId,gamemodeId) VALUES (?,?,?);",
-    game.winnerId,
-    game.loserId,
-    game.gamemodeId
+    winner,
+    looser,
+    gamemode
   );
   if (err != null) {
     console.error(err);
@@ -39,16 +38,23 @@ const getGamemodeIdByName = async (name) => {
   return gamemodes[0].gamemodeId;
 };
 
-const handleEndGame = async (req, res) => {
-  const game = req.body;
-  // TO DO : check data format
-  const gamemodeId = getGamemodeIdByName(game.gamemode);
-  const winnerRank = playerControlers.getPlayerRankByGame(
-    game.winner,
+const getGamemodeById = async (id) => {
+  const gamemodes = await Database.Read(
+    DB_PATH,
+    "SELECT gamemodeId,name FROM gamemode WHERE gamemodeId =?;",
+    id
+  );
+  return gamemodes[0].name;
+};
+
+const handleEndGame = async (winner, looser, gamemode) => {
+  const gamemodeId = getGamemodeIdByName(gamemode);
+  const winnerRank = await playerControlers.getPlayerRankByGame(
+    winner,
     gamemodeId
   );
-  const looserRank = playerControlers.getPlayerRankByGame(
-    game.looser,
+  const looserRank = await playerControlers.getPlayerRankByGame(
+    looser,
     gamemodeId
   );
   if (!winnerRank.status || !looserRank.status) {
@@ -57,15 +63,28 @@ const handleEndGame = async (req, res) => {
       .send("Intern error while getting winner and/or looser rank");
     return;
   }
+  await addGame(winner, looser, gamemodeId);
   const newScore = rankUtils.getNewPlayerPoints(
     winnerRank.points,
     looserRank.points
   );
-
-  // TO DO : calculate new score and add data to the database
+  await rankControlers.editRank(
+    winner,
+    winnerRank.points + newScore.pointsWin,
+    gamemodeId,
+    winnerRank.rankNumber
+  );
+  await rankControlers.editRank(
+    looser,
+    looserRank.points + newScore.pointsLoose,
+    gamemodeId,
+    looserRank.rankNumber
+  );
 };
 
 module.exports = {
   addGame,
   getGamemodes,
+  getGamemodeById,
+  handleEndGame,
 };

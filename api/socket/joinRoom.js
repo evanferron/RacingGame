@@ -1,4 +1,4 @@
-const checkData = require("./checkData");
+const checkData = require("../utils/checkData");
 const SpeedTyping = require("../gamemode/speedTyping");
 
 exports.joinRoom = (rooms, roomId, userId, gamemode, rank, socket) => {
