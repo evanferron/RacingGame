@@ -18,7 +18,7 @@ async function login(event) {
       "http://localhost:3000/api/auth/login",
       credentials
     );
-
+    console.log(response);
     if (response.status === 202) {
       console.log("Registration successful");
       // Redirect to the login page
