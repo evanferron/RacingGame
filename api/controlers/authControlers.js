@@ -108,7 +108,7 @@ const login = async (req, res) => {
     if (!bcryptStatus) {
       const rank = await Database.Read(
         DB_PATH,
-        "SELECT points,ranks.name AS rankName,gamemode.name AS gamemodeName FROM playersRank LEFT JOIN gamemode ON playersRank.gamemodeId = gamemode.gamemodeId LEFT JOIN ranks ON playersRank.rankId = ranks.rankId WHERE playerId = ?;",
+        "SELECT points,ranks.name AS rankName,gamemode.name AS gamemodeName, gamemodeId, rankId FROM playersRank LEFT JOIN gamemode ON playersRank.gamemodeId = gamemode.gamemodeId LEFT JOIN ranks ON playersRank.rankId = ranks.rankId WHERE playerId = ?;",
         user.playerId
       );
       // const accessToken = jwt.sign({ playerId: user.playerId }, SECRET_KEY);
