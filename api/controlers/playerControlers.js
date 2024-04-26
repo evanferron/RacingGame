@@ -12,6 +12,16 @@ const getIdByNickname = async (nickname) => {
   return -1;
 };
 
+const getNameById = async (id) => {
+  const nickname = await Database.Read(
+    DB_PATH,
+    "SELECT nickname FROM players WHERE playerId = ?;",
+    id
+  );
+  if (nickname.length != 0) return nickname[0];
+  return -1;
+};
+
 const getPlayerRankByGame = async (nickname, gamemodeId) => {
   const playerId = getIdByNickname(nickname);
   try {
@@ -101,4 +111,5 @@ module.exports = {
   getPlayerSingleRankInfo,
   getPlayerData,
   isAlreadyRegister,
+  getNameById,
 };

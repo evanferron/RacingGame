@@ -94,7 +94,8 @@ const login = async (req, res) => {
       "SELECT playerId,password FROM players WHERE nickname=?;",
       player.nickname
     );
-    if (user == null) {
+    console.log(user);
+    if (user.length == 0) {
       throw new AuthError.AuthError(
         "inexistantNickname",
         "There isn't any player with the nickname : " + player.nickname,
@@ -124,9 +125,7 @@ const login = async (req, res) => {
   } catch (err) {
     if (err.signal) {
       console.log(err.name, " : ", err.message);
-      res
-        .status(err.signal)
-        .send({ errorName: err.name, message: err.message });
+      res.status(err.signal).send(err.name);
     } else {
       console.log(err);
       res.status(500).send("Error logging in");
