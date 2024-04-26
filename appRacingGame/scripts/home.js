@@ -41,17 +41,57 @@ if (rankSpeedTyping.points <= 99) {
 }
 
 playDice = () => {
-  axios.post("http://localhost:3000/api/play", {
-    playerId: store.get("playerId"),
-    gamemodeId: rankDice.gamemodeId,
+  // Display cancel button
+  document.getElementById("btnCancelDice").style.display = "flex";
+  // Disable all sections
+  const sections = document.querySelectorAll("section");
+  sections.forEach((section) => {
+    section.onclick = null;
   });
-  window.location.href = "dice.html";
+  //Request to play
+  axios
+    .post("http://localhost:3000/api/play", {
+      playerId: store.get("playerId"),
+      gamemodeId: rankDice.gamemodeId,
+    })
+    .then((response) => {
+      if (response.status === 201) {
+        console.log("Game started");
+        setTimeout(checkMatchmakingStatus(rankDice.gamemodeId), 5000);
+        window.location.href = "dice.html";
+      }
+    });
+};
+
+checkMatchmakingStatus = async (gamemodeId) => {
+  try {
+    await axios
+      .post("http://localhost:3000/api/play/awaiting", {
+        playerId: store.get("playerId"),
+        gamemodeId: gamemodeId,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          console.log("Match found");
+          // function to redirect to the game page and break the loop
+        }
+      });
+  } catch (error) {
+    console.error("Error checkMatchmakingStatus:", error);
+  }
 };
 
 playSpeedTyping = () => {
-  axios.post("http://localhost:3000/api/play", {
-    playerId: store.get("playerId"),
-    gamemodeId: rankSpeedTyping.gamemodeId,
-  });
-  window.location.href = "speedTyping.html";
+  axios
+    .post("http://localhost:3000/api/play", {
+      playerId: store.get("playerId"),
+      gamemodeId: rankSpeedTyping.gamemodeId,
+    })
+    .then((response) => {
+      if (response.status === 201) {
+        console.log("Game started");
+        setTimeout(checkMatchmakingStatus(rankSpeedTyping.gamemodeId), 5000);
+        window.location.href = "speedTyping.html";
+      }
+    });
 };
