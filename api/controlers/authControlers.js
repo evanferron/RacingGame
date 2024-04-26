@@ -108,11 +108,12 @@ const login = async (req, res) => {
     if (!bcryptStatus) {
       const rank = await Database.Read(
         DB_PATH,
-        "SELECT points,ranks.name AS rankName,gamemode.name AS gamemodeName, gamemodeId, rankId FROM playersRank LEFT JOIN gamemode ON playersRank.gamemodeId = gamemode.gamemodeId LEFT JOIN ranks ON playersRank.rankId = ranks.rankId WHERE playerId = ?;",
-        user.playerId
+        "SELECT points,ranks.name AS rankName,gamemode.name AS gamemodeName, gamemode.gamemodeId AS gamemodeId, ranks.rankId AS rankId FROM playersRank LEFT JOIN gamemode ON playersRank.gamemodeId = gamemode.gamemodeId LEFT JOIN ranks ON playersRank.rankId = ranks.rankId WHERE playerId = ?;",
+        user[0].playerId
       );
+      console.log(rank);
       // const accessToken = jwt.sign({ playerId: user.playerId }, SECRET_KEY);
-      res.status(202).send({ playerId: user.playerId, rank: rank });
+      res.status(202).send({ playerId: user[0].playerId, rank: rank });
     } else {
       throw new AuthError.AuthError(
         "invalidPassword",
