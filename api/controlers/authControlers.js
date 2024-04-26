@@ -59,8 +59,8 @@ const register = async (req, res) => {
         500
       );
     }
-    err = await initPlayerData(player.nickname);
-    if (!err) {
+    const isInitialise = await initPlayerData(player.nickname);
+    if (!isInitialise) {
       throw new AuthError.AuthError(
         "cannotInitialise",
         "cannot initialise player data : " + err,
@@ -147,12 +147,13 @@ const initPlayerData = async (nickname) => {
 
   const silverRank = ranks.find((data) => data.name === "silver"); // get silver data
 
+  console.log(playerId);
   if (playerId == -1 || silverRank == null) return false;
   for (let gamemode of gamemodes) {
     const err = await Database.Write(
       DB_PATH,
       "INSERT INTO playersRank(playerId,points,gamemodeId,rankId) VALUES (?,?,?,?);",
-      playerId,
+      playerId.playerId,
       silverRank.downPoints,
       gamemode.gamemodeId,
       silverRank.rankId
