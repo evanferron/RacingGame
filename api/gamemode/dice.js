@@ -11,10 +11,10 @@ class Dice extends MainGamemode.MainGamemode {
       case "click":
         if (player == this.player1.id) {
           this.playerActionStatus = "Success";
-          this.play(this.player1.id);
+          this.play(this.player1);
         } else if (player == this.player2.id) {
           this.playerActionStatus = "Success";
-          this.play(this.player2.id);
+          this.play(this.player2);
         } else {
           this.playerActionStatus = "Error";
         }

@@ -19,4 +19,6 @@ router.post("/play/waiting", matchmakingsControlers.manageMatchmaking);
 // return points,gamemodeId,rankId,gamemode name,rank name of every gamemode of the player
 router.post("/gamemode/getall", playerControlers.getPlayerData);
 
+router.post("/game/getopponent", playerControlers.getPlayerData);
+
 module.exports = router;
