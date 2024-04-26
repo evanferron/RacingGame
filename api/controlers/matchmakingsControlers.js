@@ -32,7 +32,7 @@ const addMatchmaking = async (req, res) => {
       const err = await Database.Write(
         DB_PATH,
         "DELETE FROM matchmaking WHERE playerId = ?;",
-        playerdata.playerId
+        player.playerId
       );
       if (err != null) {
         console.log(err);
@@ -79,14 +79,25 @@ const manageMatchmaking = async (req, res) => {
         player.playerId,
         player.gamemodeId
       );
+      const opponentData = await playerControlers.getPlayerSingleRankInfo(
+        possibleOpponents[0].playerId,
+        player.gamemodeId
+      );
+      const opponentName = await playerControlers.getNameById(
+        possibleOpponents[0].playerId
+      );
       const gamemode = await gameControlers.getGamemodeById(player.gamemodeId);
       const rank = await ranksControlers.getRankById(playerData.rankId);
-
+      const opponentRank = await ranksControlers.getRankById(
+        opponentData.rankId
+      );
       res.json({
         roomId: currentStatus.opponentId + "-" + player.playerId,
         rank: rank.name,
         gamemode: gamemode.name,
         userId: player.playerId,
+        opponentRank: opponentRank.name,
+        opponentName: opponentName.name,
       });
       return;
     }
@@ -119,14 +130,25 @@ const manageMatchmaking = async (req, res) => {
         player.playerId,
         player.gamemodeId
       );
-      const gamemode = gameControlers.getGamemodeById(player.gamemodeId);
-      const rank = ranksControlers.getRankById(playerData.rankId);
-
+      const opponentData = await playerControlers.getPlayerSingleRankInfo(
+        possibleOpponents[0].playerId,
+        player.gamemodeId
+      );
+      const opponentName = await playerControlers.getNameById(
+        possibleOpponents[0].playerId
+      );
+      const gamemode = await gameControlers.getGamemodeById(player.gamemodeId);
+      const rank = await ranksControlers.getRankById(playerData.rankId);
+      const opponentRank = await ranksControlers.getRankById(
+        opponentData.rankId
+      );
       res.json({
         roomId: player.playerId + "-" + possibleOpponents[0].playerId,
         rank: rank.name,
         gamemode: gamemode.name,
         userId: player.playerId,
+        opponentRank: opponentRank.name,
+        opponentName: opponentName.name,
       });
     } else {
       res.status(201).send("still searching an opponent");

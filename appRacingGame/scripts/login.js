@@ -17,25 +17,25 @@ async function login(event) {
     password: password,
   };
 
-  try {
-    const response = await axios.post(
-      "http://localhost:3000/api/auth/login",
-      credentials
-    );
-    console.log(response);
-    if (response.status === 202) {
+  await axios
+    .post("http://localhost:3000/api/auth/login", credentials)
+    .then((res) => {
       console.log("Registration successful");
-      console.log(response.data);
-      store.set("playerId", response.data.playerId);
-      store.set("rank", response.data.rank);
+      console.log(res.data);
+      store.set("playerId", res.data.playerId);
+      store.set("rank", res.data.rank);
       window.location.href = "home.html";
-    } else {
-      console.error("Error: " + response.data);
-    }
-  } catch (error) {
-    console.error("Error:", error);
-    console.log("An error occurred. Please try again later.");
-  }
+    })
+    .catch((error) => {
+      console.log(error);
+      switch (error.data) {
+        case "inexistantNickname":
+          //
+          break;
+        default:
+          console.error(error);
+      }
+    });
 }
 
 document.getElementById("form-login").addEventListener("submit", login);

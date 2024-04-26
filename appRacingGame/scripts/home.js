@@ -49,13 +49,15 @@ playDice = () => {
     section.onclick = null;
   });
   //Request to play
+  console.log("test");
   axios
     .post("http://localhost:3000/api/play", {
       playerId: store.get("playerId"),
       gamemodeId: rankDice.gamemodeId,
     })
     .then((response) => {
-      if (response.status === 201) {
+    console.log("test");
+    if (response.status === 201) {
         console.log("Game started");
         setTimeout(checkMatchmakingStatus(rankDice.gamemodeId), 5000);
         window.location.href = "dice.html";

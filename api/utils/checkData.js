@@ -30,14 +30,14 @@ const handleAuthTest = (nickname, password, email = "exemple@exemple.com") => {
   if (!testEmail(email)) {
     throw new AuthError.AuthError(
       "invalidEmailFormat",
-      "The format is not valid for the email : " + player.email,
+      "The format is not valid for the email : " + email,
       400
     );
   }
   if (!testNickname(nickname)) {
     throw new AuthError.AuthError(
       "invalidNicknameFormat",
-      "The format is not valid for the nickname : " + player.nickname,
+      "The format is not valid for the nickname : " + nickname,
       400
     );
   }
