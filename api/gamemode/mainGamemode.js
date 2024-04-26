@@ -23,7 +23,7 @@ class MainGamemode {
     this.initData();
   }
 
-  // those method are
+  // those method are will be overide
 
   getGameData() {}
 
