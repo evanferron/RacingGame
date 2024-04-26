@@ -6,8 +6,9 @@ document.getElementById("nickname").innerHTML = nikname;
 
 room = store.get("room");
 
-oppenentName = room.oppenentName;
-document.getElementById("oppenent").innerHTML = oppenentName;
+opponentName = room.opponentName;
+console.log(room.opponentName);
+document.getElementById("opponent").innerHTML = opponentName;
 
 // yourScore = store.get("yourScore");
 // document.getElementById("yourScore").innerHTML = yourScore;

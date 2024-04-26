@@ -14,6 +14,7 @@ router.post("/auth/register", authControlers.register);
 router.post("/play", matchmakingsControlers.addMatchmaking);
 // check if there is any opponents
 router.post("/play/waiting", matchmakingsControlers.manageMatchmaking);
+router.post("/play/quit", matchmakingsControlers.deleteById);
 
 // need playerId in req.body
 // return points,gamemodeId,rankId,gamemode name,rank name of every gamemode of the player

@@ -56,7 +56,7 @@ const getPlayerSingleRankInfo = async (playerId, gamemodeId) => {
   try {
     const player = await Database.Read(
       DB_PATH,
-      "SELECT points,gamemodeId,rankId,requestDate FROM playersRank LEFT JOIN matchmakings ON playersRank.playerId = matchmakings.player WHERE playerId = ? AND gamemodeId = ?;",
+      "SELECT points,ranks.name AS rankName,gamemode.name AS gamemodeName, gamemode.gamemodeId AS gamemodeId, ranks.rankId AS rankId FROM playersRank LEFT JOIN gamemode ON playersRank.gamemodeId = gamemode.gamemodeId LEFT JOIN ranks ON playersRank.rankId = ranks.rankId WHERE playerId = ? AND gamemode.gamemodeId = ?;",
       playerId,
       gamemodeId
     );

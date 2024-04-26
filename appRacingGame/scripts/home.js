@@ -66,11 +66,12 @@ playDice = async () => {
       if (response.status === 201) {
         console.log("Game started");
         const game = await checkMatchmakingStatus(rankDice.gamemodeId);
+        console.log(game);
         if (game) {
           window.location.href = "dice.html";
         } else {
+          // window.location.href = "home.html";
           console.error("Error checkMatchmakingStatus");
-          window.location.href = "home.html";
         }
       }
     });
@@ -94,7 +95,7 @@ playSpeedTyping = async () => {
           window.location.href = "speedTyping.html";
         } else {
           console.error("Error checkMatchmakingStatus");
-          window.location.href = "home.html";
+          // window.location.href = "home.html";
         }
       }
     });
@@ -103,6 +104,7 @@ playSpeedTyping = async () => {
 /* -- Check Matchmaking Status -- */
 
 checkMatchmakingStatus = async (gamemodeId) => {
+  let gameFound = false;
   while (!cancel) {
     await new Promise((resolve) => setTimeout(resolve, 5000));
     console.log("Checking for match");
@@ -114,14 +116,19 @@ checkMatchmakingStatus = async (gamemodeId) => {
       .then((response) => {
         if (response.status === 200) {
           console.log("Match found");
+          console.log(response.data);
           store.set("room", response.data);
-          return true;
+          alert("test");
+          cancel = true;
+          gameFound = true;
         }
       })
       .catch((error) => {
         console.log(error);
       });
   }
+  cancel = false;
+  return gameFound;
 };
 
 /* -- Cancel -- */
