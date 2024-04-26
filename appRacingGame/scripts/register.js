@@ -24,11 +24,19 @@ async function register(event) {
     if (response.status === 201) {
       console.log("Registration successful");
       window.location.href = "login.html";
+    } else if (response.status === 400) {
+      console.error("Error: " + response.data);
+      document.getElementById("pseudo-error").innerHTML = "Pseudo déjà utilisé";
+      document.getElementById("pseudo-error").style.display = "flex";
+      document.getElementById("pseudo-error").style.border = "2px solid red";
+
+      document.getElementById("email-error").style.display = "flex";
+      document.getElementById("email-error").style.border = "2px solid red";
+      document.getElementById("email-error").innerHTML = "Email déjà utilisé";
     } else {
       console.error("Error: " + response.data);
     }
   } catch (error) {
-    console.error("Error:", error);
     console.log("An error occurred. Please try again later.");
   }
 }

@@ -4,10 +4,12 @@ class MainGamemode {
   player1 = {
     id: "",
     lvl: 0,
+    nb: 0,
   };
   player2 = {
     id: "",
     lvl: 0,
+    nb: 0,
   };
   rank;
   isGameEnd = false;

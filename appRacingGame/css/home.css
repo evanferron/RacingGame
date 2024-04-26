@@ -31,7 +31,7 @@ header {
   border-bottom-left-radius: 110px;
   border-bottom-right-radius: 110px;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
 }
 
 nav {
@@ -42,6 +42,14 @@ nav {
 }
 
 nav ul {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 60vw;
+  width: 100%;
+}
+
+nav li {
   position: fixed;
   bottom: 0;
   height: 0;
@@ -57,7 +65,7 @@ nav ul {
   justify-content: center;
 }
 
-nav ul h1 {
+nav li h1 {
   position: relative;
   font-size: 3rem;
   color: #fefefe;
@@ -65,12 +73,14 @@ nav ul h1 {
   bottom: 1rem;
 }
 
-nav ul h2 {
-  position: relative;
+nav h2,
+nav a {
   font-size: 1.5rem;
   color: #fefefe;
   font-weight: 800;
-  bottom: 1rem;
+  background-color: #3e3e3e;
+  padding: 1rem 2rem;
+  border-radius: 15px;
 }
 
 /* --- Main --- */
