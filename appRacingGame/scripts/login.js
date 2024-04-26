@@ -1,6 +1,8 @@
 const axios = require("axios");
 const Store = require("electron-store");
-
+const dotenv = require("dotenv");
+dotenv.config();
+API_ADRESS = process.env.API_ADRESS;
 const store = new Store();
 
 async function login(event) {
@@ -18,7 +20,7 @@ async function login(event) {
   };
 
   await axios
-    .post("http://localhost:3000/api/auth/login", credentials)
+    .post(API_ADRESS + "/auth/login", credentials)
     .then((res) => {
       console.log("Registration successful");
       console.log(res.data);

@@ -1,5 +1,8 @@
 const { default: axios } = require("axios");
 const Store = require("electron-store");
+const dotenv = require("dotenv");
+dotenv.config();
+API_ADRESS = process.env.API_ADRESS;
 
 const store = new Store();
 
@@ -55,7 +58,7 @@ playDice = async () => {
   // Display cancel button
   btnCancel();
   await axios
-    .post("http://localhost:3000/api/play", {
+    .post(API_ADRESS + "/play", {
       playerId: store.get("playerId"),
       gamemodeId: rankDice.gamemodeId,
     })
@@ -79,7 +82,7 @@ playSpeedTyping = async () => {
   // Display cancel button
   btnCancel();
   await axios
-    .post("http://localhost:3000/api/play", {
+    .post(API_ADRESS + "/play", {
       playerId: store.get("playerId"),
       gamemodeId: rankSpeedTyping.gamemodeId,
     })
@@ -105,7 +108,7 @@ checkMatchmakingStatus = async (gamemodeId) => {
     console.log("Checking for match");
     try {
       await axios
-        .post("http://localhost:3000/api/play/awaiting", {
+        .post(API_ADRESS + "/play/awaiting", {
           playerId: store.get("playerId"),
           gamemodeId: gamemodeId,
         })

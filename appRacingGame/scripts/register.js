@@ -1,4 +1,7 @@
 const axios = require("axios");
+const dotenv = require("dotenv");
+dotenv.config();
+API_ADRESS = process.env.API_ADRESS;
 
 async function register(event) {
   event.preventDefault();
@@ -17,7 +20,7 @@ async function register(event) {
 
   try {
     const response = await axios
-      .post("http://localhost:3000/api/auth/register", credentials)
+      .post(API_ADRESS + "/auth/register", credentials)
       .then((res) => {
         console.log("Registration successful");
         window.location.href = "login.html";
