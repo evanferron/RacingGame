@@ -2,6 +2,7 @@ const Database = require("../Database.js");
 const DB_PATH = "./racingGame.db";
 const playerControlers = require("./playerControlers.js");
 const ranksControlers = require("./rankControlers.js");
+const rangeFunc = require("../utils/rank.js");
 const gameControlers = require("./gameControlers.js");
 
 const getMatchmakingByPlayerId = async (id) => {
@@ -102,7 +103,7 @@ const manageMatchmaking = async (req, res) => {
       return;
     }
 
-    const range = playerControlers.getPlayerMatchRange(
+    const range = rangeFunc.getPlayerMatchRange(
       player.playerId,
       player.gamemodeId
     );
