@@ -4,10 +4,17 @@ const store = new Store();
 
 nikname = store.get("nickname");
 
+rank = store.get("rank");
+
+rankDice = rank.find((element) => element.gamemodeName === "Dice").rank;
+rankSpeedTyping = rank.find(
+  (element) => element.gamemodeName === "SpeedTyping"
+).rank;
+
 document.getElementById("nickname").innerHTML = nikname;
 
-// rankDice = store.get("rankDice");
-// rankSpeedTyping = store.get("rankSpeedTyping");
+rankDice = store.set("rankDice", rankDice);
+rankSpeedTyping = store.set("rankSpeedTyping", rankSpeedTyping);
 
 // document.getElementById("rankDice").innerHTML = rankDice;
 // document.getElementById("rankSpeedTyping").innerHTML = rankSpeedTyping;

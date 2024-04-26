@@ -111,8 +111,8 @@ const login = async (req, res) => {
         "SELECT points,ranks.name AS rankName,gamemode.name AS gamemodeName FROM playersRank LEFT JOIN gamemode ON playersRank.gamemodeId = gamemode.gamemodeId LEFT JOIN ranks ON playersRank.rankId = ranks.rankId WHERE playerId = ?;",
         user.playerId
       );
-      const accessToken = jwt.sign({ playerId: user.playerId }, SECRET_KEY);
-      res.status(202).send({ accessToken: accessToken, rank: rank });
+      // const accessToken = jwt.sign({ playerId: user.playerId }, SECRET_KEY);
+      res.status(202).send({ playerId: user.playerId, rank: rank });
     } else {
       throw new AuthError.AuthError(
         "invalidPassword",
@@ -147,7 +147,6 @@ const initPlayerData = async (nickname) => {
 
   const silverRank = ranks.find((data) => data.name === "silver"); // get silver data
 
-  console.log(playerId);
   if (playerId == -1 || silverRank == null) return false;
   for (let gamemode of gamemodes) {
     const err = await Database.Write(

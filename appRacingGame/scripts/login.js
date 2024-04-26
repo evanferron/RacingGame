@@ -8,11 +8,11 @@ async function login(event) {
 
   console.log("Login button clicked");
 
-  var nickname = document.getElementById("nickname").value;
-  store.set("nickname", nickname);
-  var password = document.getElementById("password").value;
+  const nickname = document.getElementById("nickname").value;
+  set("nickname", nickname);
+  const password = document.getElementById("password").value;
 
-  var credentials = {
+  const credentials = {
     nickname: nickname,
     password: password,
   };
@@ -25,6 +25,8 @@ async function login(event) {
     console.log(response);
     if (response.status === 202) {
       console.log("Registration successful");
+      store.set("playerId", response.data.playerId);
+      store.set("rank", response.data.rank);
       // Redirect to the login page
       window.location.href = "home.html";
     } else {
