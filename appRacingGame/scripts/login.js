@@ -2,7 +2,7 @@ const axios = require("axios");
 const Store = require("electron-store");
 const dotenv = require("dotenv");
 dotenv.config();
-API_ADRESS = process.env.API_ADRESS;
+const API_ADRESS = process.env.API_ADRESS;
 const store = new Store();
 
 async function login(event) {

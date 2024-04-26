@@ -2,7 +2,7 @@ const { default: axios } = require("axios");
 const Store = require("electron-store");
 const dotenv = require("dotenv");
 dotenv.config();
-API_ADRESS = process.env.API_ADRESS;
+const API_ADRESS = process.env.API_ADRESS;
 
 const store = new Store();
 
@@ -106,22 +106,21 @@ checkMatchmakingStatus = async (gamemodeId) => {
   while (!cancel) {
     await new Promise((resolve) => setTimeout(resolve, 5000));
     console.log("Checking for match");
-    try {
-      await axios
-        .post(API_ADRESS + "/play/awaiting", {
-          playerId: store.get("playerId"),
-          gamemodeId: gamemodeId,
-        })
-        .then((response) => {
-          if (response.status === 200) {
-            console.log("Match found");
-            store.set("room", response.data);
-            return true;
-          }
-        });
-    } catch (error) {
-      console.error("Error checkMatchmakingStatus:", error);
-    }
+    await axios
+      .post(API_ADRESS + "/play/waiting", {
+        playerId: store.get("playerId"),
+        gamemodeId: gamemodeId,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          console.log("Match found");
+          store.set("room", response.data);
+          return true;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 };
 

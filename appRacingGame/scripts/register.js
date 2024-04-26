@@ -1,7 +1,7 @@
 const axios = require("axios");
 const dotenv = require("dotenv");
 dotenv.config();
-API_ADRESS = process.env.API_ADRESS;
+const API_ADRESS = process.env.API_ADRESS;
 
 async function register(event) {
   event.preventDefault();
