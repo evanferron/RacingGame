@@ -39,9 +39,6 @@ nav {
   width: 100vw;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  top: 0;
-  left: 0;
 }
 
 nav ul {
@@ -63,6 +60,14 @@ nav ul {
 nav ul h1 {
   position: relative;
   font-size: 3rem;
+  color: #fefefe;
+  font-weight: 800;
+  bottom: 1rem;
+}
+
+nav ul h2 {
+  position: relative;
+  font-size: 1.5rem;
   color: #fefefe;
   font-weight: 800;
   bottom: 1rem;

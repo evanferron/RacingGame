@@ -1,4 +1,7 @@
 const axios = require("axios");
+const Store = require("electron-store");
+
+const store = new Store();
 
 async function login(event) {
   event.preventDefault();
@@ -6,6 +9,7 @@ async function login(event) {
   console.log("Login button clicked");
 
   var nickname = document.getElementById("nickname").value;
+  store.set("nickname", nickname);
   var password = document.getElementById("password").value;
 
   var credentials = {
