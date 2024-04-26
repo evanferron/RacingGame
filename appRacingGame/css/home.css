@@ -114,16 +114,16 @@ main #card-dice {
   background-position: center;
 }
 
-main #card-dice #btnCancelDice {
+main #btnCancel {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  transform: translate(-50%, -50%);
   background-color: #d00207;
   color: #fefefe;
   font-size: 1.5rem;
   padding: 0.5rem 1rem;
   border-radius: 10px;
   display: none;
+  cursor: pointer;
 }
 
 main #card-typing {
@@ -131,18 +131,6 @@ main #card-typing {
   background-image: url("../img/speedTyping.jpg");
   background-size: cover;
   background-position: center;
-}
-
-main #card-typing #btnCancelSpeedTyping {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background-color: #d00207;
-  color: #fefefe;
-  font-size: 1.5rem;
-  padding: 0.5rem 1rem;
-  border-radius: 10px;
-  display: none;
 }
 
 main #card-soon {

@@ -5,8 +5,10 @@ const store = new Store();
 nikname = store.get("nickname");
 document.getElementById("nickname").innerHTML = nikname;
 
-// oppenent = store.get("oppenent");
-// document.getElementById("oppenent").innerHTML = oppenent;
+room = store.get("room");
+
+oppenentName = room.oppenentName;
+document.getElementById("oppenent").innerHTML = oppenentName;
 
 // yourScore = store.get("yourScore");
 // document.getElementById("yourScore").innerHTML = yourScore;
