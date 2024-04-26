@@ -78,11 +78,11 @@ const isAlreadyRegister = async (nickname, email) => {
   try {
     const players = await Database.Read(
       DB_PATH,
-      "SELECT playerId FROM players WHERE nickname = ? OR email = ?;",
+      "SELECT playerId,email,nickname FROM players WHERE nickname = ? OR email = ?;",
       nickname,
       email
     );
-    return players.length > 0;
+    return players;
   } catch (error) {
     console.error(
       "Cannot check if an user is already register with ids : ",

@@ -24,13 +24,21 @@ const register = async (req, res) => {
   const player = req.body;
   try {
     checkData.handleAuthTest(player.nickname, player.password, player.email); // it throw an error if ther is an invalid data format
-    const isAlreadyRegister = await playerControlers.isAlreadyRegister(
+    const players = await playerControlers.isAlreadyRegister(
       player.nickname,
       player.email
     );
-    if (isAlreadyRegister) {
+    if (players != 0) {
+      emailFound = false;
+      passwordFound = false;
+      for (playerFound of players) {
+        if (playerFound.email == player.email) emailFound = true;
+        if (playerFound.nickname == player.nickname) emailFound = true;
+      }
+      let errorName = emailFound ? "Email" : "";
+      errorName += password ? "Password" : "";
       throw new AuthError.AuthError(
-        "alreadyRegister",
+        "alreadyRegisterWith" + errorName,
         "A player already exist with one/both of id(s)(nickname/email)",
         400
       );
@@ -51,8 +59,8 @@ const register = async (req, res) => {
         500
       );
     }
-    err = await initPlayerData(player.nickname);
-    if (!err) {
+    const isInitialise = await initPlayerData(player.nickname);
+    if (!isInitialise) {
       throw new AuthError.AuthError(
         "cannotInitialise",
         "cannot initialise player data : " + err,
@@ -64,7 +72,9 @@ const register = async (req, res) => {
     console.log(err);
     if (err.signal) {
       console.log(err.name, " : ", err.message);
-      res.status(err.signal).send("Error registering user");
+      res
+        .status(err.signal)
+        .send({ errorName: err.name, message: err.message });
     } else {
       console.log(err);
       res.status(500).send("Error registering user");
@@ -113,7 +123,9 @@ const login = async (req, res) => {
   } catch (err) {
     if (err.signal) {
       console.log(err.name, " : ", err.message);
-      res.status(err.signal).send(err.name + ":" + err.message);
+      res
+        .status(err.signal)
+        .send({ errorName: err.name, message: err.message });
     } else {
       console.log(err);
       res.status(500).send("Error logging in");
@@ -135,12 +147,13 @@ const initPlayerData = async (nickname) => {
 
   const silverRank = ranks.find((data) => data.name === "silver"); // get silver data
 
+  console.log(playerId);
   if (playerId == -1 || silverRank == null) return false;
   for (let gamemode of gamemodes) {
     const err = await Database.Write(
       DB_PATH,
       "INSERT INTO playersRank(playerId,points,gamemodeId,rankId) VALUES (?,?,?,?);",
-      playerId,
+      playerId.playerId,
       silverRank.downPoints,
       gamemode.gamemodeId,
       silverRank.rankId
