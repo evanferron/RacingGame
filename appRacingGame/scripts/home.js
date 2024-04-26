@@ -85,17 +85,18 @@ playSpeedTyping = async () => {
   await axios
     .post(API_ADRESS + "/play", {
       playerId: store.get("playerId"),
-      gamemodeId: rankSpeedTyping.gamemodeId,
+      gamemodeId: rankDice.gamemodeId,
     })
     .then(async (response) => {
       if (response.status === 201) {
         console.log("Game started");
-        const game = await checkMatchmakingStatus(rankSpeedTyping.gamemodeId);
+        const game = await checkMatchmakingStatus(rankDice.gamemodeId);
+        console.log(game);
         if (game) {
           window.location.href = "speedTyping.html";
         } else {
-          console.error("Error checkMatchmakingStatus");
           // window.location.href = "home.html";
+          console.error("Error checkMatchmakingStatus");
         }
       }
     });
