@@ -32,7 +32,14 @@ async function login(event) {
       console.log(error);
       switch (error.data) {
         case "inexistantNickname":
-          //
+          document.getElementById("pseudo-error").innerText =
+            "Nickname doesn't exist";
+          document.getElementById("nickname").style.border = "1px solid red";
+          break;
+        case "invalidPassword":
+          document.getElementById("password-error").innerText =
+            "Invalid password";
+          document.getElementById("password").style.border = "1px solid red";
           break;
         default:
           console.error(error);

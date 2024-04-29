@@ -9,16 +9,20 @@
     <header>
       <nav role="menubar">
         <ul>
-          <h2 id="nickname"></h2>
-          <li>
+          <h2 id="nickname" aria-label="votre-pseudo"></h2>
+          <li aria-hidden="true">
             <h1>Racing Game</h1>
           </li>
-          <a href="">LeaderBoard</a>
+          <a href="leaderboard.html" aria-label="btn-leaderboard"
+            >LeaderBoard</a
+          >
         </ul>
       </nav>
     </header>
     <main>
-      <button role="button" id="btnCancel">Annuler</button>
+      <button role="button" id="btnCancel" aria-label="btn-quit-matchmaking">
+        Annuler
+      </button>
       <section
         onclick="playDice()"
         class="card"
@@ -48,4 +52,5 @@
     </footer>
   </body>
   <script src="../scripts/home.js"></script>
+  <script src="../scripts/leaderboard.js"></script>
 </html>
