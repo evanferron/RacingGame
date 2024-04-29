@@ -103,7 +103,7 @@ const manageMatchmaking = async (req, res) => {
       return;
     }
 
-    const range = rangeFunc.getPlayerMatchRange(
+    const range = await rangeFunc.getPlayerMatchRange(
       player.playerId,
       player.gamemodeId
     );
@@ -113,12 +113,12 @@ const manageMatchmaking = async (req, res) => {
 
     const possibleOpponents = await Database.Read(
       DB_PATH,
-      "SELECT playerId FROM matchmaking LEFT JOIN playersRank ON matchmakings.playerId = playersRank.playerId WHERE (playersRank.points BETWEEN ? AND ?) AND playersRanks.gamemodeId = ?;",
+      "SELECT matchmaking.playerId AS playerId FROM matchmaking LEFT JOIN playersRank ON matchmaking.playerId = playersRank.playerId WHERE (playersRank.points BETWEEN ? AND ?) AND playersRank.gamemodeId = ? AND matchmaking.playerId != ?;",
       range.minRange,
       range.maxRange,
-      player.gamemodeId
+      player.gamemodeId,
+      player.playerId
     );
-
     if (possibleOpponents.length > 0) {
       // DELETE player that found an opponent and join a room
       await Database.Write(
@@ -146,10 +146,10 @@ const manageMatchmaking = async (req, res) => {
       res.json({
         roomId: player.playerId + "-" + possibleOpponents[0].playerId,
         rank: rank.name,
-        gamemode: gamemode.name,
+        gamemode: gamemode,
         userId: player.playerId,
         opponentRank: opponentRank.name,
-        opponentName: opponentName.name,
+        opponentName: opponentName.nickname,
       });
     } else {
       res.status(201).send("still searching an opponent");
@@ -160,7 +160,24 @@ const manageMatchmaking = async (req, res) => {
   }
 };
 
+const deleteById = async (req, res) => {
+  try {
+    await Database.Write(
+      DB_PATH,
+      "DELETE FROM matchmaking WHERE playerId = ?;",
+      res.body.playerId
+    );
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .send("Cannot delete from matchmaking where id = " + res.body.playerId);
+  }
+};
+
 module.exports = {
   addMatchmaking,
   manageMatchmaking,
+  deleteById,
+  getMatchmakingByPlayerId,
 };

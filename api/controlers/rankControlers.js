@@ -12,7 +12,7 @@ const getRanks = async () => {
 const getRankById = async (id) => {
   const ranks = await Database.Read(
     DB_PATH,
-    "SELECT rankId,name,downPoints,upPoints,rankNumber FROM rank WHERE rankId = ?;",
+    "SELECT rankId,name,downPoints,upPoints,rankNumber FROM ranks WHERE rankId = ?;",
     id
   );
   return ranks ? ranks[0] : null;
@@ -60,7 +60,7 @@ const editRank = async (playerId, newPoints, gamemodeId, currentRank) => {
 const getRankByRankNumber = async (n) => {
   const ranks = await Database.Read(
     DB_PATH,
-    "SELECT rankId,name,downPoints,upPoints,rankNumber FROM rank WHERE rankNumber = ?;",
+    "SELECT rankId,name,downPoints,upPoints,rankNumber FROM ranks WHERE rankNumber = ?;",
     n
   );
   return ranks ? ranks[0] : null;
