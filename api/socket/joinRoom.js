@@ -1,5 +1,6 @@
 const checkData = require("../utils/checkData");
 const SpeedTyping = require("../gamemode/speedTyping");
+const Dice = require("../gamemode/Dice");
 
 exports.joinRoom = (rooms, roomId, userId, gamemode, rank, socket) => {
   if (!rooms[roomId]) {
@@ -24,6 +25,9 @@ exports.joinRoom = (rooms, roomId, userId, gamemode, rank, socket) => {
     return;
   }
   rooms[roomId].players.push(userId);
+  // !!!! DELETE this line
+  rooms[roomId].players.push(7);
+  //
   if (rooms[roomId].players.length == 2) {
     switch (rooms[roomId].gamemode) {
       case "SpeedTyping":
@@ -32,8 +36,16 @@ exports.joinRoom = (rooms, roomId, userId, gamemode, rank, socket) => {
           rooms[roomId].players[1],
           rank
         );
+        console.log(rooms[roomId]["game"]);
+        break;
+      case "Dice":
+        rooms[roomId]["game"] = new Dice.Dice(
+          rooms[roomId].players[0],
+          rooms[roomId].players[1],
+          rank
+        );
+        break;
     }
-    // TO DO : launch the game
   }
-  socket.join(roomId);
+  // TO DO : launch the game
 };

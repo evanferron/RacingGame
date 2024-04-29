@@ -21,6 +21,23 @@ const addGame = async (winner, looser, gamemode) => {
   res.json({ status: true });
 };
 
+const getWords = async (rank) => {
+  try {
+    let difficulty;
+    if (rank == "Bronze") difficulty = 1;
+    else if (rank == "Silver" || rank == "Gold") difficulty = 2;
+    else difficulty = 3;
+    const words = await Database.Read(
+      DB_PATH,
+      "SELECT word FROM words WHERE difficulty = ? LIMIT 10;",
+      difficulty
+    );
+    return words;
+  } catch (error) {
+    console.err(error);
+  }
+};
+
 const getGamemodes = async () => {
   const gamemodes = await Database.Read(
     DB_PATH,
@@ -87,4 +104,5 @@ module.exports = {
   getGamemodes,
   getGamemodeById,
   handleEndGame,
+  getWords
 };

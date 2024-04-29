@@ -1,8 +1,9 @@
-const { default: axios } = require("axios");
+const { default: axios, getAdapter } = require("axios");
 const Store = require("electron-store");
 const dotenv = require("dotenv");
 dotenv.config();
 const API_ADRESS = process.env.API_ADRESS;
+const SOCKET_ADRESS = process.env.SOCKET_ADRESS;
 
 const store = new Store();
 
@@ -64,13 +65,12 @@ playDice = async () => {
     })
     .then(async (response) => {
       if (response.status === 201) {
-        console.log("Game started");
         const game = await checkMatchmakingStatus(rankDice.gamemodeId);
-        console.log(game);
-        if (game) {
+        if (game != "noData") {
+          joinRoom(game);
           window.location.href = "dice.html";
         } else {
-          // window.location.href = "home.html";
+          window.location.href = "home.html";
           console.error("Error checkMatchmakingStatus");
         }
       }
@@ -85,17 +85,17 @@ playSpeedTyping = async () => {
   await axios
     .post(API_ADRESS + "/play", {
       playerId: store.get("playerId"),
-      gamemodeId: rankDice.gamemodeId,
+      gamemodeId: rankSpeedTyping.gamemodeId,
     })
     .then(async (response) => {
       if (response.status === 201) {
-        console.log("Game started");
-        const game = await checkMatchmakingStatus(rankDice.gamemodeId);
+        const game = await checkMatchmakingStatus(rankSpeedTyping.gamemodeId);
         console.log(game);
-        if (game) {
+        if (game != "noData") {
+          joinRoom(game);
           window.location.href = "speedTyping.html";
         } else {
-          // window.location.href = "home.html";
+          window.location.href = "home.html";
           console.error("Error checkMatchmakingStatus");
         }
       }
@@ -105,7 +105,7 @@ playSpeedTyping = async () => {
 /* -- Check Matchmaking Status -- */
 
 checkMatchmakingStatus = async (gamemodeId) => {
-  let gameFound = false;
+  let data = "noData";
   while (!cancel) {
     await new Promise((resolve) => setTimeout(resolve, 5000));
     console.log("Checking for match");
@@ -117,11 +117,9 @@ checkMatchmakingStatus = async (gamemodeId) => {
       .then((response) => {
         if (response.status === 200) {
           console.log("Match found");
-          console.log(response.data);
+          data = response.data;
           store.set("room", response.data);
-          alert("test");
           cancel = true;
-          gameFound = true;
         }
       })
       .catch((error) => {
@@ -129,7 +127,7 @@ checkMatchmakingStatus = async (gamemodeId) => {
       });
   }
   cancel = false;
-  return gameFound;
+  return data;
 };
 
 /* -- Cancel -- */
@@ -142,4 +140,45 @@ btnCancel = () => {
   sections.forEach((section) => {
     section.onclick = null;
   });
+};
+
+// socket system
+// const socketIo = require("socket.io-client");
+
+// const socket = socketIo(SOCKET_ADRESS, {
+//   transports: ["websocket"],
+// });
+const socket = new WebSocket(SOCKET_ADRESS);
+
+socket.addEventListener("open", (e) => {
+  console.log("Connected to the server");
+});
+
+socket.onmessage = (message) => {
+  const result = JSON.parse(message);
+  console.log(message);
+};
+
+const joinRoom = (game) => {
+  console.log("try to joining a room");
+  console.log(game);
+  socket.send(
+    JSON.stringify({
+      action: "joinRoom",
+      roomId: game.roomId,
+      userId: game.userId,
+      gamemode: game.gamemode,
+      rank: game.rank,
+    })
+  );
+  socket.addEventListener("updateGame", (data) => {
+    // Mettre à jour l'état du jeu en fonction des données reçues
+  });
+  socket.addEventListener("disconnect", () => {
+    // Code de gestion de la déconnexion
+  });
+};
+
+const playerAction = (roomId, data) => {
+  socket.send("playerAction", roomId, data);
 };
