@@ -72,6 +72,15 @@ main {
   padding-left: 1rem;
 }
 
+.form-login input:focus,
+.form-register input:focus,
+.form-login .btn-submit:focus,
+.form-register .btn-submit:focus,
+main .btn-login:focus,
+main .btn-register:focus {
+  border: 2px solid #fb4444;
+}
+
 .form-register .btn-submit,
 .form-login .btn-submit {
   width: 15.765vw;

@@ -18,54 +18,48 @@ async function register(event) {
     password: password,
   };
 
-  try {
-    const response = await axios
-      .post(API_ADRESS + "/auth/register", credentials)
-      .then((res) => {
-        console.log("Registration successful");
-        window.location.href = "login.html";
-      })
-      .catch((error) => {
-        if (error.response.status == 400) {
-          console.log(error);
-          switch (error.data) {
-            case "inexistantNickname":
-              //
-              break;
-            default:
-              console.error(error);
-          }
-          document.getElementById("pseudo-error").innerHTML =
-            "Pseudo déjà utilisé";
-          document.getElementById("pseudo-error").style.display = "flex";
-          document.getElementById("pseudo-error").style.border =
-            "2px solid red";
-
-          document.getElementById("email-error").style.display = "flex";
-          document.getElementById("email-error").style.border = "2px solid red";
-          document.getElementById("email-error").innerHTML =
-            "Email déjà utilisé";
-        }
-      });
-
-    if (response.status === 201) {
+  await axios
+    .post(API_ADRESS + "/auth/register", credentials)
+    .then((res) => {
       console.log("Registration successful");
+      // console.log(res.data);
       window.location.href = "login.html";
-    } else if (response.status === 400) {
-      console.error("Error: " + response.data);
-      document.getElementById("pseudo-error").innerHTML = "Pseudo déjà utilisé";
-      document.getElementById("pseudo-error").style.display = "flex";
-      document.getElementById("pseudo-error").style.border = "2px solid red";
-
-      document.getElementById("email-error").style.display = "flex";
-      document.getElementById("email-error").style.border = "2px solid red";
-      document.getElementById("email-error").innerHTML = "Email déjà utilisé";
-    } else {
-      console.error("Error: " + response.data);
-    }
-  } catch (error) {
-    console.log("An error occurred. Please try again later.");
-  }
+    })
+    .catch((error) => {
+      console.log("Registration failed");
+      console.log(error.response);
+      switch (error.response.data.errorName) {
+        case "alreadyRegisterWithEmail":
+          if (error.response.data.errorName !== "alreadyRegisterWithNickname") {
+            document.getElementById("pseudo-error").style.display = "none";
+            document.getElementById("nickname").style.border =
+              "1px solid green";
+          }
+          document.getElementById("mail-error").innerText = "Mail already used";
+          document.getElementById("mail-error").style.display = "flex";
+          document.getElementById("email").style.border = "1px solid red";
+          break;
+        case "alreadyRegisterWithNickname":
+          if (error.response.data.errorName !== "alreadyRegisterWithEmail") {
+            document.getElementById("mail-error").style.display = "none";
+            document.getElementById("email").style.border = "1px solid green";
+          }
+          document.getElementById("pseudo-error").innerText =
+            "Pseudo already used";
+          document.getElementById("pseudo-error").style.display = "flex";
+          document.getElementById("nickname").style.border = "1px solid red";
+          break;
+        case "alreadyRegisterWithEmailNickname":
+          document.getElementById("mail-error").innerText =
+            "Mail and Pseudo already used";
+          document.getElementById("mail-error").style.display = "flex";
+          document.getElementById("nickname").style.border = "1px solid red";
+          document.getElementById("email").style.border = "1px solid red";
+          break;
+        default:
+          console.error(error);
+      }
+    });
 }
 
 document.getElementById("form-register").addEventListener("submit", register);
