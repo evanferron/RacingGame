@@ -156,7 +156,7 @@ socket.addEventListener("open", (e) => {
 
 socket.onmessage = (message) => {
   const result = JSON.parse(message);
-  console.log(message);
+  console.log(result);
 };
 
 const joinRoom = (game) => {

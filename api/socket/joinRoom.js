@@ -2,7 +2,7 @@ const checkData = require("../utils/checkData");
 const SpeedTyping = require("../gamemode/speedTyping");
 const Dice = require("../gamemode/Dice");
 
-exports.joinRoom = (rooms, roomId, userId, gamemode, rank, socket) => {
+exports.joinRoom = async (rooms, roomId, userId, gamemode, rank, socket) => {
   if (!rooms[roomId]) {
     if (checkData.checkGamemodeName(gamemode) && checkData.checkRank(rank)) {
       rooms[roomId] = {
@@ -36,7 +36,9 @@ exports.joinRoom = (rooms, roomId, userId, gamemode, rank, socket) => {
           rooms[roomId].players[1],
           rank
         );
+        await rooms[roomId]["game"].fillWords();
         console.log(rooms[roomId]["game"]);
+        socket.send(JSON.stringify(rooms[roomId]["game"].getGameData(userId)));
         break;
       case "Dice":
         rooms[roomId]["game"] = new Dice.Dice(

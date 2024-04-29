@@ -10,7 +10,7 @@ document.getElementById("nickname").innerHTML = nikname;
 room = store.get("room");
 
 opponentName = room.opponentName;
-console.log(room.opponentName);
+console.log(room);
 document.getElementById("opponent").innerHTML = opponentName;
 
 // // Événement pour rejoindre une salle de jeu

@@ -7,12 +7,11 @@ class SpeedTyping extends MainGamemode.MainGamemode {
   constructor(player1, player2, rank) {
     super(player1, player2, rank);
     this.gamemode = "SpeedTyping";
-    this.initData();
   }
 
-  initData() {
-    this.words = gameControlers.getWords(rank);
-    console.log(words);
+  async fillWords() {
+    this.words = await gameControlers.getWords(this.rank);
+    console.log(this.words);
   }
 
   playerAction(player, data) {
@@ -49,14 +48,14 @@ class SpeedTyping extends MainGamemode.MainGamemode {
           you: this.player1,
           opponent: this.player2,
           isGameEnd: this.isGameEnd,
-          currentWord: words[this.player1.lvl],
+          currentWord: this.words[this.player1.lvl],
           error: this.playerActionStatus,
         }
       : {
           you: this.player2,
           opponent: this.player1,
           isGameEnd: this.isGameEnd,
-          currentWord: words[this.player1.lvl],
+          currentWord: words[this.player1.lvl].word,
           error: this.playerActionStatus,
         };
   }

@@ -24,8 +24,9 @@ const addGame = async (winner, looser, gamemode) => {
 const getWords = async (rank) => {
   try {
     let difficulty;
-    if (rank == "Bronze") difficulty = 1;
-    else if (rank == "Silver" || rank == "Gold") difficulty = 2;
+    console.log(rank + " zifbzfbzubfuzbf");
+    if (rank == "bronze") difficulty = 1;
+    else if (rank == "silver" || rank == "gold") difficulty = 2;
     else difficulty = 3;
     const words = await Database.Read(
       DB_PATH,
@@ -104,5 +105,5 @@ module.exports = {
   getGamemodes,
   getGamemodeById,
   handleEndGame,
-  getWords
+  getWords,
 };
