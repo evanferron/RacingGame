@@ -8,9 +8,9 @@ RacingGame est une plateforme logicielle proposant des jeux en face-à-face tels
 
 Pour installer le projet, il faut cloner le repository `git clone https://github.com/evanferron/RacingGame.git`, puis installer les dépendances avec la commande `npm i` dans le dossier `appRacingGame` Ensuite, faite `cd ..` puis `cd api` -> `npm i` 
 
-### ⚠️ Veulliez changer l'ip du serveur en fonction de la votre !
+### ⚠️ Veuillez changer l'ip du serveur en fonction de la votre !
 
-Dans le `.env` de `appRacingGame/` changer `API_ADRESS="http://VOTRE_IP:3000/api"`
+Dans le `.env` de `appRacingGame/` changer `API_ADRESS="http://VOTRE_IP:3000/api`
 
 et lancer le serveur avec la commande `node index.js`.
 
