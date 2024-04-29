@@ -11,10 +11,6 @@ class SpeedTyping extends MainGamemode.MainGamemode {
   }
 
   initData() {
-    this.fillWords;
-  }
-
-  fillWords() {
     this.words = gameControlers.getWords(rank);
     console.log(words);
   }
