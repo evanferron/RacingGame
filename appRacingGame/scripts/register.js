@@ -27,7 +27,7 @@ async function register(event) {
     })
     .catch((error) => {
       console.log("Registration failed");
-      console.log(error.response.data.errorName);
+      console.log(error.response);
       switch (error.response.data.errorName) {
         case "alreadyRegisterWithEmail":
           if (error.response.data.errorName !== "alreadyRegisterWithNickname") {

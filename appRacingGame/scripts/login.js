@@ -22,13 +22,14 @@ async function login(event) {
   await axios
     .post(API_ADRESS + "/auth/login", credentials)
     .then((res) => {
-      console.log("Registration successful");
+      console.log("Login successful");
       console.log(res.data);
       store.set("playerId", res.data.playerId);
       store.set("rank", res.data.rank);
       window.location.href = "home.html";
     })
     .catch((error) => {
+      console.log("Login failed");
       console.log(error.response);
       switch (error.response.data) {
         case "inexistantNickname":
