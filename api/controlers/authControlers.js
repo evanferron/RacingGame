@@ -94,7 +94,6 @@ const login = async (req, res) => {
       "SELECT playerId,password FROM players WHERE nickname=?;",
       player.nickname
     );
-    console.log(user);
     if (user.length == 0) {
       throw new AuthError.AuthError(
         "inexistantNickname",
@@ -111,7 +110,6 @@ const login = async (req, res) => {
         "SELECT points,ranks.name AS rankName,gamemode.name AS gamemodeName, gamemode.gamemodeId AS gamemodeId, ranks.rankId AS rankId FROM playersRank LEFT JOIN gamemode ON playersRank.gamemodeId = gamemode.gamemodeId LEFT JOIN ranks ON playersRank.rankId = ranks.rankId WHERE playerId = ?;",
         user[0].playerId
       );
-      console.log(rank);
       // const accessToken = jwt.sign({ playerId: user.playerId }, SECRET_KEY);
       res.status(202).send({ playerId: user[0].playerId, rank: rank });
     } else {

@@ -1,19 +1,17 @@
 const MainGamemode = require("./mainGamemode");
+const gameControlers = require("../controlers/gameControlers");
 
 class SpeedTyping extends MainGamemode.MainGamemode {
   words = [];
 
-  constructor() {
-    super();
+  constructor(player1, player2, rank) {
+    super(player1, player2, rank);
     this.gamemode = "SpeedTyping";
   }
 
-  initData() {
-    this.fillWords;
-  }
-
-  fillWords() {
-    // TO DO get 10 words in words (difficulty depending on game rank)
+  async fillWords() {
+    this.words = await gameControlers.getWords(this.rank);
+    console.log(this.words);
   }
 
   playerAction(player, data) {
@@ -50,14 +48,14 @@ class SpeedTyping extends MainGamemode.MainGamemode {
           you: this.player1,
           opponent: this.player2,
           isGameEnd: this.isGameEnd,
-          currentWord: words[this.player1.lvl],
+          currentWord: this.words[this.player1.lvl],
           error: this.playerActionStatus,
         }
       : {
           you: this.player2,
           opponent: this.player1,
           isGameEnd: this.isGameEnd,
-          currentWord: words[this.player1.lvl],
+          currentWord: words[this.player1.lvl].word,
           error: this.playerActionStatus,
         };
   }
