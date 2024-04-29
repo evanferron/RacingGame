@@ -37,8 +37,8 @@ exports.joinRoom = async (rooms, roomId, userId, gamemode, rank, socket) => {
           rank
         );
         await rooms[roomId]["game"].fillWords();
-        console.log(rooms[roomId]["game"]);
         socket.send(JSON.stringify(rooms[roomId]["game"].getGameData(userId)));
+        console.log(rooms[roomId]["game"].getGameData(userId));
         break;
       case "Dice":
         rooms[roomId]["game"] = new Dice.Dice(

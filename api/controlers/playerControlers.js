@@ -3,11 +3,13 @@ const DB_PATH = "./racingGame.db";
 const rankControlers = require("./rankControlers");
 
 const getIdByNickname = async (nickname) => {
+  console.log(nickname);
   const id = await Database.Read(
     DB_PATH,
     "SELECT playerId FROM players WHERE nickname = ?;",
     nickname
   );
+  console.log(id);
   if (id.length != 0) return id[0];
   return -1;
 };
@@ -22,8 +24,7 @@ const getNameById = async (id) => {
   return -1;
 };
 
-const getPlayerRankByGame = async (nickname, gamemodeId) => {
-  const playerId = getIdByNickname(nickname);
+const getPlayerRankByGame = async (playerId, gamemodeId) => {
   try {
     const playerRank = await Database.Read(
       DB_PATH,
@@ -31,10 +32,10 @@ const getPlayerRankByGame = async (nickname, gamemodeId) => {
       playerId,
       gamemodeId
     );
-    const rankInfo = rankControlers.getRankById(playerRank.rankId);
+    const rankInfo = await rankControlers.getRankById(playerRank[0].rankId);
     return {
       playerId: playerId,
-      points: points,
+      points: playerRank[0].points,
       rankName: rankInfo.name,
       downPoints: rankInfo.downPoints,
       upPoints: rankInfo.upPoints,

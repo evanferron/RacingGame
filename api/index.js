@@ -41,7 +41,7 @@ ws.on("connection", (socket) => {
         );
         break;
       case "playerAction":
-        playerAction.playerAction(rooms, data.roomId, data);
+        playerAction.playerAction(rooms, data.roomId, data, socket);
         break;
       default:
         socket.send("wrong action name in data send");

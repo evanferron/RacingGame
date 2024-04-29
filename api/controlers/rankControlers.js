@@ -10,27 +10,30 @@ const getRanks = async () => {
 };
 
 const getRankById = async (id) => {
+  console.log(id);
   const ranks = await Database.Read(
     DB_PATH,
     "SELECT rankId,name,downPoints,upPoints,rankNumber FROM ranks WHERE rankId = ?;",
     id
   );
+  console.log("ranks", ranks);
   return ranks ? ranks[0] : null;
 };
 
 const editRank = async (playerId, newPoints, gamemodeId, currentRank) => {
   const newRank = null;
+  console.log(playerId, newPoints, gamemodeId, currentRank);
   if (newPoints < currentRank.downPoints) {
     // down rank case
-    newRank = getRankByRankNumber(currentRank.rankNumber - 1);
+    newRank = await getRankByRankNumber(currentRank.rankNumber - 1);
   } else if (currentRank.upPoints != null) {
     if (currentRank.upPoints < newPoints) {
       // up rank case
-      newRank = getRankByRankNumber(currentRank.rankNumber + 1);
+      newRank = await getRankByRankNumber(currentRank.rankNumber + 1);
     }
   }
   if (newRank != null) {
-    const err = Database.Write(
+    const err = await Database.Write(
       DB_PATH,
       "UPDATE playersRank SET points=?,rankId=? WHERE gamemodeId=? AND playerId=?;",
       newPoints,
@@ -43,7 +46,7 @@ const editRank = async (playerId, newPoints, gamemodeId, currentRank) => {
       res.status(500).send("Error editing player rank");
     }
   } else {
-    const err = Database.Write(
+    const err = await Database.Write(
       DB_PATH,
       "UPDATE playersRank SET points=? WHERE gamemodeId=? AND playerId=?;",
       newPoints,

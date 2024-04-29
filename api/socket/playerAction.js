@@ -1,10 +1,4 @@
-exports.playerAction = (rooms, roomId, playerAction) => {
-  // action possible mode random:
-  //  lance le dé
-  //  quitte la partie
-  // action possible mode fastTyping:
-  //  entre un mot
-  //  quitte la partie
-  rooms[roomId].game.playerAction(playerAction.playerId, playerAction);
-  io.to(roomId).emit("updateGame", rooms[rooms].game.getGameData());
+exports.playerAction = (rooms, roomId, data, socket) => {
+  rooms[roomId].game.playerAction(data.playerId, data);
+  socket.send(JSON.stringify(rooms[roomId].game.getGameData(data.playerId)));
 };

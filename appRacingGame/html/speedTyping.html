@@ -29,7 +29,7 @@
       </section>
     </header>
     <main>
-      <form class="game" method="post">
+      <section class="game" onsubmit="(e)=>e.preventDefault()">
         <div class="words">
           <h2 id="word" aria-label="Le mot est">Avion</h2>
         </div>
@@ -39,15 +39,16 @@
           id="input"
           placeholder="Rentrer le mot"
           aria-label="Rentrer le mot"
+          autofocus
         /><span
           class="error"
           id="word-error"
           aria-label="error message word"
         ></span>
-        <button class="btn-submit" id="btn-submit" aria-label="Valider">
+        <button class="btn-submit" id="btn-submit" aria-label="Valider" onclick="playerTry()">
           <span>Envoyer</span>
         </button>
-      </form>
+      </section>
     </main>
     <footer>
       <a

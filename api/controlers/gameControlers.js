@@ -18,7 +18,6 @@ const addGame = async (winner, looser, gamemode) => {
     return;
   }
   console.log("a game has been successfully add");
-  res.json({ status: true });
 };
 
 const getWords = async (rank) => {
@@ -66,7 +65,7 @@ const getGamemodeById = async (id) => {
 };
 
 const handleEndGame = async (winner, looser, gamemode) => {
-  const gamemodeId = getGamemodeIdByName(gamemode);
+  const gamemodeId = await getGamemodeIdByName(gamemode);
   const winnerRank = await playerControlers.getPlayerRankByGame(
     winner,
     gamemodeId
@@ -86,6 +85,7 @@ const handleEndGame = async (winner, looser, gamemode) => {
     winnerRank.points,
     looserRank.points
   );
+  console.log("winnerRank : ",winnerRank)
   await rankControlers.editRank(
     winner,
     winnerRank.points + newScore.pointsWin,
@@ -98,6 +98,7 @@ const handleEndGame = async (winner, looser, gamemode) => {
     gamemodeId,
     looserRank.rankNumber
   );
+  
 };
 
 module.exports = {

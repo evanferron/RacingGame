@@ -247,3 +247,12 @@ footer .btn-quit span {
   font-weight: 800;
   bottom: 1rem;
 }
+
+#word-error{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 70%;
+  font-size: large;
+  color: white;
+}

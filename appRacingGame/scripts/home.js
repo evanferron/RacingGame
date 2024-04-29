@@ -90,10 +90,11 @@ playSpeedTyping = async () => {
     .then(async (response) => {
       if (response.status === 201) {
         const game = await checkMatchmakingStatus(rankSpeedTyping.gamemodeId);
-        console.log(game);
         if (game != "noData") {
           joinRoom(game);
-          window.location.href = "speedTyping.html";
+          setTimeout(() => {
+            window.location.href = "speedTyping.html";
+          }, 2000);
         } else {
           window.location.href = "home.html";
           console.error("Error checkMatchmakingStatus");
@@ -107,7 +108,7 @@ playSpeedTyping = async () => {
 checkMatchmakingStatus = async (gamemodeId) => {
   let data = "noData";
   while (!cancel) {
-    await new Promise((resolve) => setTimeout(resolve, 5000));
+    await new Promise((resolve) => setTimeout(resolve, 4000));
     console.log("Checking for match");
     await axios
       .post(API_ADRESS + "/play/waiting", {
@@ -142,26 +143,23 @@ btnCancel = () => {
   });
 };
 
-// socket system
-// const socketIo = require("socket.io-client");
-
-// const socket = socketIo(SOCKET_ADRESS, {
-//   transports: ["websocket"],
-// });
 const socket = new WebSocket(SOCKET_ADRESS);
+store.set("socket", socket);
 
 socket.addEventListener("open", (e) => {
   console.log("Connected to the server");
 });
 
 socket.onmessage = (message) => {
-  const result = JSON.parse(message);
-  console.log(result);
+  console.log("receiving message from server");
+  const result = JSON.parse(message.data);
+  if (result.you != null) {
+    store.set("game", result);
+  }
 };
 
 const joinRoom = (game) => {
   console.log("try to joining a room");
-  console.log(game);
   socket.send(
     JSON.stringify({
       action: "joinRoom",
@@ -171,14 +169,12 @@ const joinRoom = (game) => {
       rank: game.rank,
     })
   );
-  socket.addEventListener("updateGame", (data) => {
-    // Mettre à jour l'état du jeu en fonction des données reçues
-  });
-  socket.addEventListener("disconnect", () => {
-    // Code de gestion de la déconnexion
-  });
 };
 
-const playerAction = (roomId, data) => {
+const playerAction = (playerAction, roomId, data) => {
   socket.send("playerAction", roomId, data);
+};
+
+module.exports = {
+  playerAction,
 };

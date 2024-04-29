@@ -1,24 +1,23 @@
-const playerAction = require("./playerAction");
-const joinRoom = require("./joinRoom");
+// const playerAction = require("./playerAction");
+// const joinRoom = require("./joinRoom");
 
-const rooms = {};
+// const rooms = {};
 
-exports.InitSocketSystem = (io) => {
-  io.on("connection", (socket) => {
-    console.log("a player is connected to the room");
+// exports.InitSocketSystem = (io) => {
+//   io.on("connection", (socket) => {
+//     console.log("a player is connected to the room");
 
-    socket.on("joinRoom", (roomId, userId, gamemode, rank) => {
-      console.log("")
-      joinRoom(rooms, roomId, userId, gamemode, rank, socket);
-    });
+//     socket.on("joinRoom", (roomId, userId, gamemode, rank) => {
+//       joinRoom(rooms, roomId, userId, gamemode, rank, socket);
+//     });
 
-    socket.on("playerAction", (roomId, data) => {
-      playerAction(rooms, roomId, data);
-    });
+//     socket.on("playerAction", (roomId, data) => {
+//       playerAction(rooms, roomId, data, socket);
+//     });
 
-    socket.on("disconnected", () => {});
-  });
-};
+//     socket.on("disconnected", () => {});
+//   });
+// };
 
 // // client.js
 
