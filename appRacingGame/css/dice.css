@@ -234,6 +234,11 @@ footer .btn-quit {
   justify-content: center;
 }
 
+footer .btn-quit:focus {
+  border-color: #fb4444;
+  outline: none;
+}
+
 footer .btn-quit span {
   position: relative;
   font-size: 1.5rem;

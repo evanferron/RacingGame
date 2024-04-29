@@ -17,13 +17,22 @@
     </header>
     <main>
       <section>
-        <form id="form-leaderboard">
-          <input type="hidden" name="gamemodeId" id="gamemodeId" value="1" />
-          <button type="submit" aria-label="filtre de dice">Dice</button>
-          <input type="hidden" name="gamemodeId" id="gamemodeId" value="2" />
-          <button type="submit" aria-label="filtre de speedTyping">
-            Speed Typing
-          </button>
+        <form class="filter" id="form-leaderboard">
+          <label for="gamemodeId">Filtre par mode de jeu</label>
+          <fieldset>
+            <input type="hidden" name="gamemodeId" id="gamemodeId" value="1" />
+            <button type="submit" aria-label="filtre de dice" id="dice">
+              Dice
+            </button>
+            <input type="hidden" name="gamemodeId" id="gamemodeId" value="2" />
+            <button
+              type="submit"
+              aria-label="filtre de speedTyping"
+              id="speedTyping"
+            >
+              Speed Typing
+            </button>
+          </fieldset>
         </form>
       </section>
       <section>

@@ -18,14 +18,14 @@ async function getLeaderboard(event) {
     .post(API_ADRESS + "/leaderboard", data)
     .then((res) => {
       console.log("Leaderboard successful");
-      displayLeaderboard(res.data);
+      displayLeaderboard(res.data, gamemodeId);
     })
     .catch((error) => {
       console.log(error);
     });
 }
 
-displayLeaderboard = (leaderboard) => {
+displayLeaderboard = (leaderboard, gamemodeId) => {
   const leaderboardTable = document.getElementById("leaderboard");
 
   leaderboardTable.innerHTML = "";
@@ -39,6 +39,21 @@ displayLeaderboard = (leaderboard) => {
     cellNickname.innerHTML = player.nickname;
     cellPoints.innerHTML = player.points;
   });
+
+  switch (gamemodeId) {
+    case "1":
+      document.getElementById("speedTyping").style.backgroundColor = "#3e3e3e";
+
+      document.getElementById("dice").style.backgroundColor = "#fb4444";
+      break;
+    case "2":
+      document.getElementById("dice").style.backgroundColor = "#3e3e3e";
+
+      document.getElementById("speedTyping").style.backgroundColor = "#3a61eb";
+      break;
+    default:
+      console.error("Invalid gamemodeId");
+  }
 };
 
 document
