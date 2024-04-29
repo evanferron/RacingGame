@@ -4,6 +4,11 @@
 // WHERE playersRank.gamemodeId = 1
 // ORDER BY playersRank.points DESC;
 
+const Database = require("../Database.js");
+const dotenv = require("dotenv");
+dotenv.config();
+const DB_PATH = process.env.DB_PATH;
+
 async function getLeaderboard(req, res) {
   const gamemodeId = req.body.gamemodeId;
   const leaderboard = await Database.Read(
