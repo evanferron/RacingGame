@@ -10,11 +10,13 @@ Pour installer le projet, il faut cloner le repository `git clone https://github
 
 ### ⚠️ Veuillez changer l'ip du serveur en fonction de la votre !
 
-Dans le `.env` de `appRacingGame/` changer `API_ADRESS="http://VOTRE_IP:3000/api`
+Dans le `.env` de `appRacingGame/` changer `API_ADRESS="http://VOTRE_IP:3000/api` pour l'app ou la même chose dans le dossier `appracinggame-win32-x64` -> `resources` pour le logiciel
 
 et lancer le serveur avec la commande `node index.js`.
 
 ## ⚠️ Attention il faut lancer le serveur api avant de lancer le logiciel ! ⚠️
+
+Et executer le .exe `appracinggame.exe` dans le dossier `appracinggame-win32-x64`
 
 ## ❓ Si vous souhaitez lancer electron en app ! ❓
 
