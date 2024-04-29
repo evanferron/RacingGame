@@ -6,6 +6,7 @@ const gameControlers = require("./controlers/gameControlers");
 const playerControlers = require("./controlers/playerControlers");
 const rankControlers = require("./controlers/rankControlers");
 const matchmakingsControlers = require("./controlers/matchmakingsControlers");
+const leaderboardControlers = require("./controlers/leaderboardControlers");
 
 router.post("/auth/login", authControlers.login);
 router.post("/auth/register", authControlers.register);
@@ -21,5 +22,8 @@ router.post("/play/quit", matchmakingsControlers.deleteById);
 router.post("/gamemode/getall", playerControlers.getPlayerData);
 
 router.post("/game/getopponent", playerControlers.getPlayerData);
+
+// return the leaderboard of the gamemode
+router.post("/leaderboard", leaderboardControlers.getLeaderboard);
 
 module.exports = router;

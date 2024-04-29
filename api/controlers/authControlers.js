@@ -30,13 +30,13 @@ const register = async (req, res) => {
     );
     if (players != 0) {
       emailFound = false;
-      passwordFound = false;
+      nicknameFound = false;
       for (playerFound of players) {
         if (playerFound.email == player.email) emailFound = true;
-        if (playerFound.nickname == player.nickname) emailFound = true;
+        if (playerFound.nickname == player.nickname) nicknameFound = true;
       }
       let errorName = emailFound ? "Email" : "";
-      errorName += password ? "Password" : "";
+      errorName += nicknameFound ? "Nickname" : "";
       throw new AuthError.AuthError(
         "alreadyRegisterWith" + errorName,
         "A player already exist with one/both of id(s)(nickname/email)",
@@ -101,11 +101,10 @@ const login = async (req, res) => {
         400
       );
     }
-    let bcryptStatus;
-    bcrypt.compare(player.password, user[0].password, (err, result) => {
-      bcryptStatus = result;
-    });
-    if (!bcryptStatus) {
+
+    const bcryptStatus = bcrypt.compareSync(player.password, user[0].password); // compare the password
+
+    if (bcryptStatus) {
       const rank = await Database.Read(
         DB_PATH,
         "SELECT points,ranks.name AS rankName,gamemode.name AS gamemodeName, gamemode.gamemodeId AS gamemodeId, ranks.rankId AS rankId FROM playersRank LEFT JOIN gamemode ON playersRank.gamemodeId = gamemode.gamemodeId LEFT JOIN ranks ON playersRank.rankId = ranks.rankId WHERE playerId = ?;",
