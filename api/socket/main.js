@@ -7,7 +7,8 @@ exports.InitSocketSystem = (io) => {
   io.on("connection", (socket) => {
     console.log("a player is connected to the room");
 
-    socket.on("joinRoom", (roomId, userId, gamemode, rank, socket) => {
+    socket.on("joinRoom", (roomId, userId, gamemode, rank) => {
+      console.log("")
       joinRoom(rooms, roomId, userId, gamemode, rank, socket);
     });
 

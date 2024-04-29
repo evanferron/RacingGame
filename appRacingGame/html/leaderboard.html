@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Racing Game</title>
+    <link rel="stylesheet" href="../css/leaderboard.css" />
+  </head>
+  <body>
+    <header aria-hidden="true">
+      <nav>
+        <ul>
+          <li>
+            <h1>Racing Game LeaderBoard</h1>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section>
+        <form class="filter" id="form-leaderboard">
+          <label for="gamemodeId">Filtre par mode de jeu</label>
+          <fieldset>
+            <input type="hidden" name="gamemodeId" id="gamemodeId" value="1" />
+            <button type="submit" aria-label="filtre de dice" id="dice">
+              Dice
+            </button>
+            <input type="hidden" name="gamemodeId" id="gamemodeId" value="2" />
+            <button
+              type="submit"
+              aria-label="filtre de speedTyping"
+              id="speedTyping"
+            >
+              Speed Typing
+            </button>
+          </fieldset>
+        </form>
+      </section>
+      <section>
+        <table aria-label="tableau des scores">
+          <thead>
+            <tr>
+              <th>Joueur</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboard"></tbody>
+        </table>
+      </section>
+    </main>
+    <footer>
+      <a
+        class="btn-quit"
+        href="home.html"
+        aria-label="Bouton retour à l'accueil"
+        ><span>Retour</span>
+      </a>
+    </footer>
+  </body>
+  <script src="../scripts/leaderboard.js"></script>
+</html>

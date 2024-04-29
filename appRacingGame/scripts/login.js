@@ -22,17 +22,37 @@ async function login(event) {
   await axios
     .post(API_ADRESS + "/auth/login", credentials)
     .then((res) => {
-      console.log("Registration successful");
+      console.log("Login successful");
       console.log(res.data);
       store.set("playerId", res.data.playerId);
       store.set("rank", res.data.rank);
       window.location.href = "home.html";
     })
     .catch((error) => {
-      console.log(error);
-      switch (error.data) {
+      console.log("Login failed");
+      console.log(error.response);
+      switch (error.response.data) {
         case "inexistantNickname":
-          //
+          if (error.response.data !== "invalidPassword") {
+            document.getElementById("password-error").style.display = "none";
+            document.getElementById("password").style.border =
+              "1px solid green";
+          }
+          document.getElementById("pseudo-error").innerText =
+            "Nickname doesn't exist";
+          document.getElementById("pseudo-error").style.display = "flex";
+          document.getElementById("nickname").style.border = "1px solid red";
+          break;
+        case "invalidPassword":
+          if (error.response.data !== "inexistantNickname") {
+            document.getElementById("pseudo-error").style.display = "none";
+            document.getElementById("nickname").style.border =
+              "1px solid green";
+          }
+          document.getElementById("password-error").innerText =
+            "Invalid password";
+          document.getElementById("password-error").style.display = "flex";
+          document.getElementById("password").style.border = "1px solid red";
           break;
         default:
           console.error(error);
