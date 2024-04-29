@@ -16,7 +16,7 @@ et lancer le serveur avec la commande `node index.js`.
 
 ## ⚠️ Attention il faut lancer le serveur api avant de lancer le logiciel ! ⚠️
 
-Et executer le .exe `appracinggame.exe` dans le dossier `appracinggame-win32-x64`
+Puis exécuter le .exe `appracinggame.exe` dans le dossier `appracinggame-win32-x64` pour lancer le logiciel
 
 ## ❓ Si vous souhaitez lancer electron en app ! ❓
 
