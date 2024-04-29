@@ -1,7 +1,8 @@
 const axios = require("axios");
 const Store = require("electron-store");
+const path = require("path");
 const dotenv = require("dotenv");
-dotenv.config();
+dotenv.config({ path: path.resolve(__dirname, "../.env") });
 const API_ADRESS = process.env.API_ADRESS;
 const store = new Store();
 
