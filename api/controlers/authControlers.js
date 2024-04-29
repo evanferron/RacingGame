@@ -30,13 +30,13 @@ const register = async (req, res) => {
     );
     if (players != 0) {
       emailFound = false;
-      passwordFound = false;
+      nicknameFound = false;
       for (playerFound of players) {
         if (playerFound.email == player.email) emailFound = true;
-        if (playerFound.nickname == player.nickname) emailFound = true;
+        if (playerFound.nickname == player.nickname) nicknameFound = true;
       }
       let errorName = emailFound ? "Email" : "";
-      errorName += password ? "Password" : "";
+      errorName += nicknameFound ? "Nickname" : "";
       throw new AuthError.AuthError(
         "alreadyRegisterWith" + errorName,
         "A player already exist with one/both of id(s)(nickname/email)",
