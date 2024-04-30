@@ -26,7 +26,7 @@ async function login(event) {
       console.log("Login successful");
       console.log(res.data);
       store.set("playerId", res.data.playerId);
-      store.set("rank", res.data.rank);
+      
       window.location.href = "home.html";
     })
     .catch((error) => {

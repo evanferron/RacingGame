@@ -3,7 +3,6 @@ const dotenv = require("dotenv");
 dotenv.config();
 const SOCKET_ADRESS = process.env.SOCKET_ADRESS;
 const store = new Store();
-// const socket = require("./home");
 const socket = new WebSocket(SOCKET_ADRESS);
 
 nikname = store.get("nickname");
@@ -11,14 +10,21 @@ document.getElementById("nickname").innerHTML = nikname;
 
 room = store.get("room");
 game = store.get("game");
+console.log(room);
+console.log(game);
 if (game.error != "") {
   document.getElementById("word-error").innerHTML = "Mauvais orthographe";
 }
-console.log(game.currentWord.word);
+document.getElementById("progress1").value = game.you.lvl * 10;
+document.getElementById("progress1").innerHTML = game.you.lvl * 10 + "%";
+document.getElementById("pointsPlayer1").innerHTML = game.you.lvl * 10 + "%";
+document.getElementById("progress2").value = game.opponent.lvl * 10;
+document.getElementById("progress2").innerHTML = game.opponent.lvl * 10 + "%";
+document.getElementById("pointsPlayer2").innerHTML =
+  game.opponent.lvl * 10 + "%";
 document.getElementById("word").innerHTML = game.currentWord.word.toLowerCase();
 
-opponentName = room.opponentName;
-document.getElementById("opponent").innerHTML = opponentName;
+document.getElementById("opponent").innerHTML = room.opponentName;
 
 playerTry = () => {
   const word = document.getElementById("input").value;

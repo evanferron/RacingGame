@@ -8,25 +8,37 @@ const SOCKET_ADRESS = process.env.SOCKET_ADRESS;
 
 const store = new Store();
 
+let rankDice;
+let rankSpeedTyping;
+let nikname;
+let rank;
 /* --- Get data from login --- */
+axios
+  .post(API_ADRESS + "/gamemode/getall", { playerId: store.get("playerId") })
+  .then((res) => {
+    store.set("rank", res.data.rank);
 
-nikname = store.get("nickname");
-
-rank = store.get("rank");
-
-const rankDice = rank.find((r) => r.gamemodeName === "Dice");
-const rankSpeedTyping = rank.find((r) => r.gamemodeName === "SpeedTyping");
-
-/* --- Set data --- */
-
-store.set("rankDice", rankDice);
-store.set("rankSpeedTyping", rankSpeedTyping);
-
-/* --- Display data --- */
-
-document.getElementById("nickname").innerHTML = nikname;
-document.getElementById("rankDice").innerHTML = rankDice.points;
-document.getElementById("rankSpeedTyping").innerHTML = rankSpeedTyping.points;
+    nikname = store.get("nickname");
+    rank = store.get("rank");
+    rankDice = rank.find((r) => r.gamemodeName === "Dice");
+    rankSpeedTyping = rank.find((r) => r.gamemodeName === "SpeedTyping");
+    /* --- Set data --- */
+    store.set("rankDice", rankDice);
+    store.set("rankSpeedTyping", rankSpeedTyping);
+    setBorderColor(document.getElementById("card-dice"), rankDice.points);
+    setBorderColor(
+      document.getElementById("card-typing"),
+      rankSpeedTyping.points
+    );
+    /* --- Display data --- */
+    document.getElementById("nickname").innerHTML = nikname;
+    document.getElementById("rankDice").innerHTML = rankDice.points;
+    document.getElementById("rankSpeedTyping").innerHTML =
+      rankSpeedTyping.points;
+  })
+  .catch((err) => {
+    console.err(err);
+  });
 
 /* --- Btn Cancel --- */
 
@@ -50,9 +62,6 @@ function setBorderColor(element, points) {
     element.style.borderColor = "skyblue";
   }
 }
-
-setBorderColor(document.getElementById("card-dice"), rankDice.points);
-setBorderColor(document.getElementById("card-typing"), rankSpeedTyping.points);
 
 /* -- Dice -- */
 
