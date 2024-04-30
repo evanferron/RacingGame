@@ -10,6 +10,16 @@
   "author": "Evan Ferron et Maxime Fuzeau",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^30.0.0"
+    "@electron/packager": "^18.3.2",
+    "electron": "^30.0.0",
+    "electron-builder": "^24.13.3",
+    "electron-packager": "^17.1.2"
+  },
+  "dependencies": {
+    "axios": "^1.6.8",
+    "dotenv": "^16.4.5",
+    "electron-store": "^8.2.0",
+    "socket.io-client": "^4.7.5",
+    "ws": "^8.17.0"
   }
 }

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Racing Game</title>
+    <link rel="stylesheet" href="../css/register.css" />
+  </head>
+  <body>
+    <main>
+      <h1 class="title" aria-hidden="true">Register</h1>
+      <form
+        class="form-register"
+        id="form-register"
+        method="post"
+        aria-label="Formulaire d'inscription"
+      >
+        <input
+          type="text"
+          id="nickname"
+          name="nickname"
+          minlength="3"
+          placeholder="Pseudo"
+          aria-label="pseudo"
+          required
+        />
+        <span
+          class="error"
+          id="pseudo-error"
+          aria-label="error message pseudo"
+        ></span>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          minlength="7"
+          placeholder="Email"
+          aria-label="email"
+          required
+        />
+        <span
+          class="error"
+          id="mail-error"
+          aria-label="error message mail"
+        ></span>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          minlength="8"
+          placeholder="Mot de passe"
+          aria-label="mot de passe"
+          required
+        />
+        <span
+          class="error"
+          id="password-error"
+          aria-label="error message password"
+        ></span>
+
+        <button
+          class="btn-submit"
+          type="submit"
+          aria-label="Confirm"
+          role="button"
+        >
+          Envoyer
+        </button>
+      </form>
+      <a
+        class="btn-login"
+        href="login.html"
+        aria-label="Bouton login"
+        role="button"
+      >
+        J'ai déjà un compte !
+      </a>
+    </main>
+  </body>
+  <script type="module" src="../scripts/register.js"></script>
+</html>

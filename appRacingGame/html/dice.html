@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Racing Game</title>
+    <link rel="stylesheet" href="../css/dice.css" />
+  </head>
+  <body>
+    <header aria-hidden="true">
+      <section class="infosPlayer" id="infosPlayer1">
+        <h2 class="pseudo" id="nickname">Pseudo</h2>
+        <progress
+          max="100"
+          value="25"
+          class="progressionBarre"
+          id="progress1"
+        ></progress>
+        <h3 class="points" id="pointsPlayer1">25</h3>
+      </section>
+      <section class="infosPlayer" id="infosPlayer2">
+        <h2 class="pseudo" id="opponent">Pseudo</h2>
+        <progress
+          max="100"
+          value="20"
+          class="progressionBarre"
+          id="progress2"
+        ></progress>
+        <h3 class="points" id="pointsPlayer2">20</h3>
+      </section>
+    </header>
+    <main>
+      <div class="title">
+        <h1 aria-label="Titre">Dice</h1>
+      </div>
+      <section class="infosDice">
+        <img class="imgDice" src="../img/dice.png" alt="" />
+        <div class="nbDice">
+          <h2 aria-label="Le dé est">6</h2>
+        </div>
+      </section>
+      <button class="btn-submit" id="btn-submit" aria-label="Lancer le dé">
+        <span>Lancer</span>
+      </button>
+    </main>
+    <footer>
+      <a
+        href="./home.html"
+        class="btn-quit"
+        id="btn-quit"
+        aria-label="Bouton Quiter"
+        ><span>Abandonner</span>
+      </a>
+    </footer>
+  </body>
+  <script src="../scripts/dice.js"></script>
+</html>

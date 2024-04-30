@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Racing Game</title>
+    <link rel="stylesheet" href="../css/register.css" />
+  </head>
+  <body>
+    <main>
+      <h1 class="title" aria-hidden="true">Login</h1>
+      <form
+        class="form-login"
+        id="form-login"
+        aria-label="Formulaire de connexion"
+      >
+        <input
+          type="text"
+          id="nickname"
+          name="nickname"
+          placeholder="Pseudo"
+          aria-label="pseudo"
+          required
+        />
+        <span
+          class="error"
+          id="pseudo-error"
+          aria-label="error message pseudo"
+        ></span>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Mot de passe"
+          aria-label="mot de passe"
+          required
+        />
+        <span
+          class="error"
+          id="password-error"
+          aria-label="error message password"
+        ></span>
+
+        <button
+          class="btn-submit"
+          type="submit"
+          aria-label="Confirm"
+          role="button"
+        >
+          Envoyer
+        </button>
+      </form>
+      <a
+        class="btn-register"
+        href="register.html"
+        aria-label="Bouton register"
+        role="button"
+      >
+        Je n'ai pas de compte !
+      </a>
+    </main>
+  </body>
+  <script src="../scripts/login.js"></script>
+</html>

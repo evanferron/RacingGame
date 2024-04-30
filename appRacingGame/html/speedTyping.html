@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Racing Game</title>
+    <link rel="stylesheet" href="../css/speedTyping.css" />
+  </head>
+  <body>
+    <header aria-hidden="true">
+      <section class="infosPlayer" id="infosPlayer1">
+        <h2 class="pseudo" id="nickname">Pseudo</h2>
+        <progress
+          max="100"
+          value="5"
+          class="progressionBarre"
+          id="progress1"
+        ></progress>
+        <h3 class="points" id="pointsPlayer1">0</h3>
+      </section>
+      <section class="infosPlayer" id="infosPlayer2">
+        <h2 class="pseudo" id="opponent">Pseudo</h2>
+        <progress
+          max="100"
+          value="5"
+          class="progressionBarre"
+          id="progress2"
+        ></progress>
+        <h3 class="points" id="pointsPlayer2">0</h3>
+      </section>
+    </header>
+    <main>
+      <section class="game" onsubmit="(e)=>e.preventDefault()">
+        <div class="words">
+          <h2 id="word" aria-label="Le mot est">Avion</h2>
+        </div>
+        <input
+          type="text"
+          class="input"
+          id="input"
+          placeholder="Rentrer le mot"
+          aria-label="Rentrer le mot"
+          autofocus
+        /><span
+          class="error"
+          id="word-error"
+          aria-label="error message word"
+        ></span>
+        <button class="btn-submit" id="btn-submit" aria-label="Valider" onclick="playerTry()">
+          <span>Envoyer</span>
+        </button>
+      </section>
+    </main>
+    <footer>
+      <a
+        href="./home.html"
+        class="btn-quit"
+        id="btn-quit"
+        aria-label="Bouton Quiter"
+        ><span>Abandonner</span>
+      </a>
+    </footer>
+  </body>
+  <script src="../scripts/speedTyping.js"></script>
+</html>

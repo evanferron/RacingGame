@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Racing Game</title>
+    <link rel="stylesheet" href="../css/home.css" />
+  </head>
+  <body>
+    <header>
+      <nav role="menubar">
+        <ul>
+          <h2 id="nickname" aria-label="votre-pseudo"></h2>
+          <li aria-hidden="true">
+            <h1>Racing Game</h1>
+          </li>
+          <a href="leaderboard.html" aria-label="btn-leaderboard"
+            >LeaderBoard</a
+          >
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <button role="button" id="btnCancel" aria-label="btn-quit-matchmaking">
+        Annuler
+      </button>
+      <button
+        onclick="playDice()"
+        class="card"
+        id="card-dice"
+        aria-label="Renter dans le jeu"
+        role="button"
+      >
+        <h3 id="rankDice" aria-label="Rank">305</h3>
+        <h3 id="name" aria-label="Nom du jeu">Dice</h3>
+      </button>
+      <button
+        onclick="playSpeedTyping()"
+        class="card"
+        id="card-typing"
+        aria-label="Renter dans le jeu"
+        role="button"
+      >
+        <h3 id="rankSpeedTyping" aria-label="Rank">249</h3>
+        <h3 id="name" aria-label="Nom du jeu">Speed Typing</h3>
+      </button>
+      <section class="card" id="card-soon" aria-hidden="true"></section>
+    </main>
+    <footer>
+      <a class="btn-quit" href="register.html" aria-label="Bouton déconnecter"
+        ><span>Se déconnecter</span>
+      </a>
+    </footer>
+  </body>
+  <script src="../scripts/home.js"></script>
+</html>
