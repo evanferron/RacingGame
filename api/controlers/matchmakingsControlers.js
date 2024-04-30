@@ -82,10 +82,8 @@ const manageMatchmaking = async (req, res) => {
         currentStatus[0].opponentId,
         player.gamemodeId
       );
-      console.log("opponentData : ", opponentData);
-
       const opponentName = await playerControlers.getNameById(
-        currentStatus[0].opponentId.playerId
+        currentStatus[0].opponentId
       );
       const gamemode = await gameControlers.getGamemodeById(player.gamemodeId);
       const rank = await ranksControlers.getRankById(playerData.rankId);
