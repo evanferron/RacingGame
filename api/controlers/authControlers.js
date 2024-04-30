@@ -111,7 +111,7 @@ const login = async (req, res) => {
         user[0].playerId
       );
       // const accessToken = jwt.sign({ playerId: user.playerId }, SECRET_KEY);
-      res.status(202).send({ playerId: user[0].playerId, rank: rank });
+      res.status(202).send({ playerId: user[0].playerId});
     } else {
       throw new AuthError.AuthError(
         "invalidPassword",

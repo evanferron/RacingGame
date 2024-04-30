@@ -85,7 +85,7 @@ const handleEndGame = async (winner, looser, gamemode) => {
     winnerRank.points,
     looserRank.points
   );
-  console.log("winnerRank : ",winnerRank)
+  console.log("winnerRank : ", winnerRank);
   await rankControlers.editRank(
     winner,
     winnerRank.points + newScore.pointsWin,
@@ -94,11 +94,10 @@ const handleEndGame = async (winner, looser, gamemode) => {
   );
   await rankControlers.editRank(
     looser,
-    looserRank.points + newScore.pointsLoose,
+    looserRank.points - newScore.pointsLoose,
     gamemodeId,
     looserRank.rankNumber
   );
-  
 };
 
 module.exports = {

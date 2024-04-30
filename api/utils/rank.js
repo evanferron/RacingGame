@@ -39,9 +39,13 @@ const getPlayerMatchRange = async (playerId, gamemodeId) => {
     );
     if (data == null || matchmaking[0].requestDate == undefined) return null;
     const range = Math.floor(Date.now() / 1000);
+    console.log({
+      minRange: data.points - (range - matchmaking[0].requestDate) / 2,
+      maxRange: data.points + (range - matchmaking[0].requestDate) / 2,
+    });
     return {
-      minRange: data.points - (range - matchmaking[0].requestDate) / 5,
-      maxRange: data.points + (range - matchmaking[0].requestDate) / 5,
+      minRange: data.points - (range - matchmaking[0].requestDate) / 2,
+      maxRange: data.points + (range - matchmaking[0].requestDate) / 2,
     };
   } catch (error) {
     console.log(error);

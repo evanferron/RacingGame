@@ -69,12 +69,12 @@ const getPlayerData = async (req, res) => {
   const playerId = req.body.playerId;
   try {
     // TO DO : make the request to get player data that are necessary to the client
-    const player = await Database.Read(
+    const rank = await Database.Read(
       DB_PATH,
-      "SELECT points,ranks.name AS rankName,gamemode.name AS gamemodeName, gamemodeId, rankId FROM playersRank LEFT JOIN gamemode ON playersRank.gamemodeId = gamemode.gamemodeId LEFT JOIN ranks ON playersRank.rankId = ranks.rankId WHERE playerId = ?;",
+      "SELECT points,ranks.name AS rankName,gamemode.name AS gamemodeName, gamemode.gamemodeId AS gamemodeId, ranks.rankId AS rankId FROM playersRank LEFT JOIN gamemode ON playersRank.gamemodeId = gamemode.gamemodeId LEFT JOIN ranks ON playersRank.rankId = ranks.rankId WHERE playerId = ?;",
       playerId
     );
-    res.json({ data: player });
+    res.json({ playerId: playerId, rank: rank });
   } catch (error) {
     console.error(error);
     res.status(501).send("Cannot get player data");
