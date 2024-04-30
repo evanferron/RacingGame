@@ -67,25 +67,25 @@ const manageMatchmaking = async (req, res) => {
   try {
     const player = req.body;
     const currentStatus = await getMatchmakingByPlayerId(player.playerId);
-
-    if (currentStatus.opponentId != null) {
+    if (currentStatus[0].opponentId != null) {
       // case where another player found him and already join the room
       await Database.Write(
         DB_PATH,
         "DELETE FROM matchmaking WHERE playerId = ?;",
         player.playerId
       );
-
       const playerData = await playerControlers.getPlayerSingleRankInfo(
         player.playerId,
         player.gamemodeId
       );
       const opponentData = await playerControlers.getPlayerSingleRankInfo(
-        possibleOpponents[0].playerId,
+        currentStatus[0].opponentId,
         player.gamemodeId
       );
+      console.log("opponentData : ", opponentData);
+
       const opponentName = await playerControlers.getNameById(
-        possibleOpponents[0].playerId
+        currentStatus[0].opponentId.playerId
       );
       const gamemode = await gameControlers.getGamemodeById(player.gamemodeId);
       const rank = await ranksControlers.getRankById(playerData.rankId);
@@ -93,12 +93,12 @@ const manageMatchmaking = async (req, res) => {
         opponentData.rankId
       );
       res.json({
-        roomId: currentStatus.opponentId + "-" + player.playerId,
+        roomId: currentStatus[0].opponentId + "-" + player.playerId,
         rank: rank.name,
         gamemode: gamemode.name,
         userId: player.playerId,
         opponentRank: opponentRank.name,
-        opponentName: opponentName.name,
+        opponentName: opponentName.nickname,
       });
       return;
     }
@@ -124,6 +124,11 @@ const manageMatchmaking = async (req, res) => {
       await Database.Write(
         DB_PATH,
         "DELETE FROM matchmaking WHERE playerId = ?;",
+        player.playerId
+      );
+      await Database.Write(
+        DB_PATH,
+        "UPDATE matchmaking SET opponentId = ?",
         player.playerId
       );
 

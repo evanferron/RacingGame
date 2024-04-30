@@ -15,18 +15,20 @@ exports.joinRoom = async (rooms, roomId, userId, gamemode, rank, socket) => {
         "A room attempted to be created with this gamemode name : " + gamemode,
         "And this rank : " + rank
       );
-      return;
     }
   }
-  if (rooms[roomId].players.length >= 2) {
-    console.log(
-      "A player attempted to join a room that already contains two players"
-    );
-    return;
+  // if (rooms[roomId].players.length >= 2) {
+  //   console.log(
+  //     "A player attempted to join a room that already contains two players"
+  //   );
+  //   return;
+  // }
+  if (rooms[roomId].players.length != 2) {
+    const playersId = roomId.split("-");
+    rooms[roomId].players.push(parseInt(playersId[0]));
+    rooms[roomId].players.push(parseInt(playersId[1]));
   }
-  rooms[roomId].players.push(userId);
-  // !!!! DELETE this line
-  rooms[roomId].players.push(7);
+
   //
   if (rooms[roomId].players.length == 2) {
     switch (rooms[roomId].gamemode) {
@@ -38,7 +40,6 @@ exports.joinRoom = async (rooms, roomId, userId, gamemode, rank, socket) => {
         );
         await rooms[roomId]["game"].fillWords();
         socket.send(JSON.stringify(rooms[roomId]["game"].getGameData(userId)));
-        console.log(rooms[roomId]["game"].getGameData(userId));
         break;
       case "Dice":
         rooms[roomId]["game"] = new Dice.Dice(

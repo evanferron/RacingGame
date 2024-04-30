@@ -7,6 +7,7 @@ const API_ADRESS = process.env.API_ADRESS;
 const SOCKET_ADRESS = process.env.SOCKET_ADRESS;
 
 const store = new Store();
+store.set("game", null);
 
 let rankDice;
 let rankSpeedTyping;
