@@ -10,7 +10,9 @@ Pour installer le projet, il faut cloner le repository `git clone https://github
 
 ### ⚠️ Veuillez changer l'ip du serveur en fonction de la votre !
 
-Dans le `.env` de `appRacingGame/` changer `API_ADRESS="http://VOTRE_IP:3000/api` pour l'app ou la même chose dans le dossier `appracinggame-win32-x64` -> `resources` pour le logiciel
+Dans le `.env` de `appRacingGame/` changer `API_ADRESS="http://VOTRE_IP(de l'api):3000/api` et `SOCKET_ADRESS="ws://VOTRE_IP(de l'api):3000"` pour l'app
+
+Même chose dans le dossier `appracinggame-win32-x64` -> `resources` pour le logiciel
 
 et lancer le serveur avec la commande `node index.js`.
 
