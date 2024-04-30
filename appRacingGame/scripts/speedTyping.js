@@ -46,6 +46,7 @@ socket.onmessage = (message) => {
   const result = JSON.parse(message.data);
   console.log(result);
   if (result.isGameEnd) {
+    store.set("game", null);
     window.location.href = "home.html";
     return;
   } else {
